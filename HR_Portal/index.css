@@ -197,7 +197,47 @@ text-align: center;margin-left:-40px;width:260px;
 }
 
 
-/*emp_generate_payslip.php*/
+/*admin_generate_report.php*/
+.whitecolor{
+font-color:white;	
+	
+}
+	
+	
+	/*  admin_upload_document*/
 
+
+#headingwell2{
+  width:50%;height:35px;margin-left:100px;position:absolute;background-color:brown;
+}
+
+
+#button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+/* admin apply leave.php */
+
+.btn_admin_applyleave{
+background-color:brown !important;color:white;
+}
+
+
+
+/*admin add leaves.php */
+#field_for_dropdown{
+  width:350px;height:35px;border-radius:5px;border:none;background-color:white;
+}
+.fieldleavetype1{
+  width:350px !important;height:35px !important;border-radius:5px!important;border:none !important;background-color:white !important;
+}
 
 </style>

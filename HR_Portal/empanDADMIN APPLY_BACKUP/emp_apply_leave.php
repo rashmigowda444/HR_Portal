@@ -7,9 +7,8 @@ function validateForm() {
 	
 	
 	 var leave_type3 = document.forms["myForm"]["field"].value;
-	
-    if (leave_type3 =="select") { 
-        alert("please select Leave Type");
+    if (durationval =="select") { 
+        alert("please select duration");
         return false;
     }
 }
@@ -242,8 +241,8 @@ echo" <option value=".$leave_id.">". $leave_type . "</option>";
   <textarea name="reason"  style="width:350px;height:35px;border-radius:5px;border:none;background-color:white;" rows="4" cols="50"  required></textarea>
   </div>
   </div><br><br><hr id="hrbef">
-  <input type="submit" class="btn btn-success"    value="Submit" name="submit">&emsp;&emsp;
-  <a href="emp_dashboard.php"><input type="button"  class="btn btn-success"   value="Back"></input></a>
+  <input type="submit" id="btn"  value="Submit" name="submit">&emsp;&emsp;
+  <a href="emp_dashboard.php"><input type="button"  id="btn" value="Back"></input></a>
 </form>
 
 </div>
@@ -293,8 +292,7 @@ $leave_balance=$row['leave_balance'];
 }
 $leave_balance_new=($leave_balance-$no_days);
 $leave_balance_duration=($leave_balance-$duration);
-$lop_duration=$no_days;
-
+echo $duration;
 if($no_days <= $leave_balance)
 { 
 $leave="Select * from tekhub_leaves as A join tekhub_user_leave as B on A.leave_id=B.leave_id where A.leave_id='$leave_type'";
@@ -321,7 +319,6 @@ if(!$retval4){
 die('could not enter data:'.mysqli_error($conn));
 }
 echo '<script language="javascript"> alert("Added successfully")</script>';
-exit;
 }
 else{
 $sql2="INSERT INTO tekhub_apply_leave(emp_id,leave_id,from_date,to_date,duration,comment,no_of_days,leave_balance,leave_status_id) VALUES ('$id','$leave_id','$from_date','$to_date','$duration','$reason','$no_days','$leave_balance_new','1')";
@@ -335,27 +332,8 @@ if(!$retval4){
 die('could not enter data:'.mysqli_error($conn));
 }
 echo '<script language="javascript"> alert("Added successfully")</script>';
-exit;
 }
 }
-else if($leave_name=="LOP")
-{ 
-
-	$sql2="INSERT INTO tekhub_apply_leave (emp_id,leave_id,from_date,to_date,comment,
-no_of_days,leave_status_id)
-VALUES    ('$id','$leave_type','$from_date','$to_date','$reason','$lop_duration','1')";
-$retval3=mysqli_query($conn,$sql2);
-if(!$retval3){
-die('could not enter data:'.mysqli_error($conn));
-}
-echo '<script language="javascript"> alert("Added successfully")</script>';
-exit;
-
-	
-	
-	
-	
-} 
 else{
 $lop=$leave_entitlements+$no_days;
 $lop_duration=$leave_entitlements+$duration;
@@ -372,7 +350,6 @@ if(!$retval4){
 die('could not enter data:'.mysqli_error($conn));
 }
 echo '<script language="javascript"> alert("Added successfully")</script>';
-exit;
 }
 else{
 $sql2="INSERT INTO tekhub_apply_leave (emp_id,leave_id,from_date,to_date,duration,comment,no_of_days,leave_balance,leave_status_id) VALUES ('$id','$leave_id','$from_date','$to_date','0','$reason','$no_days','$lop','1')";
@@ -386,7 +363,6 @@ if(!$retval4){
 die('could not enter data:'.mysqli_error($conn));
 }
 echo '<script language="javascript"> alert("Added successfully")</script>';
-exit;
 }
 }
 }
@@ -401,44 +377,12 @@ else if($no_days == 1 && $duration<=$leave_balance){
     if(!$retval4){
       die('could not enter data:'.mysqli_error($conn));
     }
-    echo '<script language="javascript"> alert("Applied successfully1")</script>';
-	exit;
+    echo '<script language="javascript"> alert("Applied successfully")</script>';
   }
-if($leave_type ==4)
-{ 
-$sql2="INSERT INTO tekhub_apply_leave (emp_id,leave_id,from_date,to_date,duration,comment,no_of_days,leave_balance,leave_status_id)
-VALUES ('$id','$leave_id','$from_date','$to_date','0','$reason','$no_days','$leave_balance_new','1')";
+else{
+echo '<script>      alert("Insufficient "+"'.$leave_name.'"+" balance");                  </script>';
 
-$retval2=mysqli_query($conn,$sql2);
-if(!$retval2){
-die('could not enter data:'.mysqli_error($conn));
-}
-$user_duration="UPDATE tekhub_user_leave set leave_taken='$lop_duration' where emp_id='$id' and leave_id='$leave_type'";
-$retval4=mysqli_query($conn,$user_duration);
-if(!$retval4){
-die('could not enter data:'.mysqli_error($conn));
-}
-echo '<script language="javascript"> alert("Added successfully")</script>';
-exit;
-}
-else{ 
-    if( $leave_type==1){
-	echo '<script language="javascript"> alert("Insufficient Casual leave balance");</script>'; }
-	 if( $leave_type==2){
-	echo '<script language="javascript"> alert("Insufficient Earned leave balance");</script>'; }
-	 if( $leave_type==3){
-	echo '<script language="javascript"> alert("Insufficient Sick leave balance");</script>'; }
-	if( $leave_type==4){
-	echo '<script language="javascript"> alert("Insufficient Lop leave balance");</script>'; }
-	
-}
-/*else{
-echo '<script>      alert("Insufficient2 "+"'.$leave_name.'"+" balance");                  </script>';
-
-}//inside if else closedir */
-
-
-
+}//inside if else closedir
 
 }
 

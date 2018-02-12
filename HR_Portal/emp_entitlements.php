@@ -61,6 +61,7 @@ echo"
 
 
 ?>
+<a href="emp_dashboard.php"><input type="button" class="btn btn-success"   value="Back "></input></a>
 </div>
 </div><br><hr id="hrline">
 

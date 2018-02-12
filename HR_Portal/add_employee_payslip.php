@@ -47,7 +47,7 @@ date_default_timezone_set('GMT');
   <label>Department :</label>
   </div>
   <div class="col-md-9" >
-  <select class="form-control" name="dept" id="field">
+  <select class="form-control" name="dept" id="field" required>
     <option>------Select------</option>
     <option value="IT">IT</option>
     <option value="HR">HR</option>
@@ -63,7 +63,7 @@ date_default_timezone_set('GMT');
   <label>Designation :</label>
   </div>
   <div class="col-md-9">
-  <input name="designation" class="form-control" id="field" type="text">
+  <input name="designation" class="form-control" id="field" type="text" required>
   </div>
   </div><br>
 
@@ -113,35 +113,31 @@ date_default_timezone_set('GMT');
   <input name="income" class="form-control" id="field" type="text"  required>
   </div>
   </div><br>
-
 <br><hr>
-  
-<button type="submit" class="btn">Add Employee</button>
+<button type="submit" id="btn" class="btn">Add Employee</button>&emsp;
+<a href="admin_dashboard.php"><input type="button"  id="btn"  class="btn" value="Back"></input></a>
 </form>
 
 </div>
 </div><br><hr id="hrline">
 
-
 <?php
   include('footer.php');
 ?>
-
-
 <?php
 if(isset($_POST['id'])){
-$id=$_POST['id'];
-$name=$_POST['name'];
-$doj= date('Y-m-d',strtotime($_POST['doj']));
-$dept=$_POST['dept'];
-$designation=$_POST['designation'];
-$pan=$_POST['pan'];
-$pf=$_POST['pf'];
-$work=$_POST['work'];
-$lop=$_POST['lop'];
-$account=$_POST['account'];
-$basic=$_POST['basic'];
-$income=$_POST['income'];
+echo $id=$_POST['id'];
+echo $name=$_POST['name'];
+echo$doj= date('Y-m-d',strtotime($_POST['doj']));
+echo $dept=$_POST['dept'];
+echo $designation=$_POST['designation'];
+echo $pan=$_POST['pan'];
+echo $pf=$_POST['pf'];
+//$work=$_POST['work'];
+//$lop=$_POST['lop'];
+echo $account=$_POST['account'];
+echo $basic=$_POST['basic'];
+echo $income=$_POST['income'];
 
 $name1=$id1="";
 if($name!=''&& $id!='')
@@ -153,28 +149,28 @@ if(!$retval11)
 die('could not enter data:'.mysqli_error($conn));
 }
 while($row11= mysqli_fetch_array($retval11)){
-$name1=$row11[emp_name];
-$id1=$row11[emp_id];
+$name1=$row11['emp_name'];
+$id1=$row11['emp_id'];
 }
 
 if($name1==$name && $id1==$id){
 $sql="INSERT INTO tekhub_employee_personal_details(emp_id,emp_name,date_of_joining,department,designation) VALUES('$id1','$name1','$doj','$dept','$designation')";
 $retval=mysqli_query($conn,$sql);
 if(!$retval){
-die('could not enter data:'.mysqli_error($conn));
+die('could not enter data1:'.mysqli_error($conn));
 }
 
-$sql3="INSERT INTO tekhub_employee_salary(emp_id,basic_salary) VALUES('$id1','$basic')";
+$sql3="INSERT INTO tekhub_employee_salary(emp_id,basic_salary,income_tax) VALUES('$id1','$basic',$income)";
 $retval3=mysqli_query($conn,$sql3);
 if(!$retval3){
-die('could not enter data:'.mysqli_error($conn));
+die('could not enter data3:'.mysqli_error($conn));
 }
 
 $sql1="INSERT INTO tekhub_employee_bank_details(emp_id,pan_number,pf_number,account_number)
 VALUES('$id1','$pan','$pf','$account')";
 $retval1=mysqli_query($conn,$sql1);
 if(!$retval1){
-die('could not enter data:'.mysqli_error($conn));
+die('could not enter data2:'.mysqli_error($conn));
 }
 else{
 echo '<script language="javascript"> alert("Added successfully")</script>';

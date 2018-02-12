@@ -2,8 +2,15 @@
   include('header_admin.php');
 ?>
 <script>
+$(function() {
+    $( "#field1" ).autocomplete({
+        source: 'search.php'
+    });
+});
+</script>
+<script>
 function validateForm() {
-    var name = document.forms["myForm"]["emp_name"].value;
+    var name = document.forms["myForm"]["field"].value;
 	
     if (name =="select") { 
         alert("please select name");
@@ -53,6 +60,7 @@ else{
   <div class="col-md-2">
   <label>Employee Name</label>
   </div>
+  <td><input class="form-control" id="field1" name="emp_name_search" required></td>
   <?php 
   $sqlforempname="select * from tekhub_employee_personal_details";
    $retvalforempname=mysqli_query($conn,$sqlforempname);
@@ -60,7 +68,7 @@ else{
 		die('could not enter data:'.mysqli_error());
   }
    echo"<div class='col-md-10'>
- <select  id='field'  name='emp_id_name' class='form-control'  required>
+ <select  id='field'  name='emp_id_name' class='form-control' required>
  
     <option value='select'>-----Select----</option>
 	<option >All</option>";
@@ -87,7 +95,7 @@ else{
   die('could not enter data:'.mysqli_error());
   }
   echo"<div class='col-md-10'>
- <select  id='leave_type'  style='width:350px;height:35px;border-radius:5px;border:none;background-color:white;' name='leave_type'  required>
+ <select  id='leave_type' style='width:350px;height:35px;border-radius:5px;border:none;background-color:white;'   name='leave_type'  required>
  
     <option value='select' >-----Select----</option>";
   while($row= mysqli_fetch_array($retval)){
@@ -105,12 +113,12 @@ else{
   <label>Add Leave Days </label>
   </div>
    <div class="col-md-10">
- <input type="number" style="width:350px;height:35px;border-radius:5px;border:none;background-color:white;"  name="norofdays" id="addleaves" ></br>
+ <input type="number"  name="norofdays" id="addleaves"  style="width:350px;height:35px;border-radius:5px;border:none;background-color:white;'   name='leave_type"></br>
   </div>
   <div><br><br><hr id="hrbef"> 
-  <input type="submit"  value="Submit" class= "btn btn-success" name="submit" >
+  <input type="submit" class="btn btn-sucess"  value="Submit" name="submit" >
   &emsp;&emsp;
-  <a href="admin_dashboard.php"><input type="button" class="btn btn-success" value="Back "></input></a>
+  <a href="admin_dashboard.php"><input type="button" class="btn btn-sucess" value="Back "></input></a>
   
   
   </div>
@@ -131,13 +139,32 @@ include('footer.php');
 <?php
 if(isset($_POST['submit']))
 { 
-$emp_id=$_POST['emp_id_name'];
+$emp_name=$_POST['emp_name_search'];
+//$emp_id=$_POST['emp_id_name'];
+$emp_id=0;
 $leave_id=$_POST['leave_type'];
 $nor_of_days=$_POST['norofdays'];
+
+
+ 
+  $sqlforempname="select * from tekhub_employee_personal_details where emp_name='$emp_name'";
+   $retvalforempname=mysqli_query($conn,$sqlforempname);
+    if(!$retvalforempname){
+		die('could not enter data:'.mysqli_error());
+  }
+  
+  while($row= mysqli_fetch_array($retvalforempname)){
+  $emp_name=$row['emp_name']; 
+  echo $emp_id=$row['emp_id'];
+  
+  }
+  
+ 
+
 //if(isset($_POST['submit']))
 	if($emp_id!="All")
 {  $leave_balance;
-	$sqlfor_existing_value=" select leave_balance  from tekhub_user_leave WHERE emp_id=".$emp_id." and leave_id=".$leave_id."";
+	$sqlfor_existing_value=" select *  from tekhub_user_leave WHERE emp_id=".$emp_id." and leave_id=".$leave_id."";
  $sqlfor_existing_value_return=mysqli_query($conn,$sqlfor_existing_value);
  	if(!$sqlfor_existing_value_return) 
     {
@@ -149,13 +176,12 @@ else
  while($row= mysqli_fetch_array($sqlfor_existing_value_return,MYSQLI_ASSOC))
      {
      $leave_balance=$row['leave_balance'];
-	 $leave_entitle=$row['leave_entitlements'];
- 
+     echo $leave_entittle=$row['leave_entitlements'];
 	 }
 
 $leave_add=$leave_balance+$nor_of_days;
-	
-$sql1="UPDATE `tekhub_user_leave` set leave_balance=".$leave_add." WHERE emp_id=".$emp_id." and leave_id=".$leave_id."";
+$leave_entittle_add=$leave_entittle+$nor_of_days;	
+$sql1="UPDATE `tekhub_user_leave` set leave_balance=".$leave_add.",leave_entitlements=".$leave_entittle_add." WHERE emp_id=".$emp_id." and leave_id=".$leave_id."";
 $retval2=mysqli_query($conn,$sql1);
 if(!$retval2)
 {
@@ -167,7 +193,7 @@ echo '<script language="javascript"> alert("Added successfully")</script>';
    }
 }
 } else {  //leave id 5 setting up
-$sqlfor_existing_value="select leave_balance,emp_id from tekhub_user_leave where leave_id=".$leave_id."";
+$sqlfor_existing_value="select * from tekhub_user_leave where leave_id=".$leave_id."";
  $sqlfor_existing_value_return=mysqli_query($conn,$sqlfor_existing_value);
 if(!$sqlfor_existing_value_return) 
     {
@@ -180,10 +206,11 @@ else
      {
      $leave_balance=$row['leave_balance'];
 	 $emp_id_add_all_bal=$row['emp_id'];
+	 echo $leave_entittle=$row['leave_entitlements'];
     $leave_balance;  echo "emp id is "; 
  $leave_balance=$leave_balance+$nor_of_days;
- 
-$sqlfor_add_all_members="update tekhub_user_leave set leave_balance=".$leave_balance." where leave_id=".$leave_id." and emp_id=".$emp_id_add_all_bal."";
+ $leave_entittle_add=$leave_entittle+$nor_of_days;
+$sqlfor_add_all_members="update tekhub_user_leave set leave_balance=".$leave_balance.",leave_entitlements=".$leave_entittle_add." where leave_id=".$leave_id." and emp_id=".$emp_id_add_all_bal."";
  $sqlfor_add_all_members_return=mysqli_query($conn,$sqlfor_add_all_members);
  	if(!$sqlfor_add_all_members_return) 
     {

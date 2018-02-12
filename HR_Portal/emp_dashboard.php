@@ -96,7 +96,20 @@
     <h3>Exit Management</h3>
     <p>Decided to leave for good? We will ensure you have a smooth exit. Just one request….Stay in touch!</p>
   </div>
-  </div><hr>
+  </div>
+ 
+ <div class="row">
+   <div class="col-md-2"> <img src="images/policy.png" alt="Tekvity" id="dashimg"></div>
+   <div class="col-md-10">
+    <h3> Policies & Procedures</h3>
+    <p>HR Policies & Procedures or Forms & Formats, all the information you often require is made available round 
+   the clock!</p>
+    <a id="a-btn" href="emp_view_policy.php"><button type="button" class="btn">Policy & procedure</button></a>
+  
+  </div> </div>
+  
+
+  <hr>
 
 </div>
 </div><br><br><hr id="hrline">

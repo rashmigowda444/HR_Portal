@@ -1,9 +1,11 @@
 
 <?php
 //check if form is submitted
-if (isset($_POST['view']))
-{ $url=$_GET['url'];
-//echo $url;
+if (isset( $_GET['url']))
+{
+ 
+	$url=$_GET['url'];
+	
 
 
   
@@ -17,8 +19,8 @@ header("Content-Length: " . filesize($filename));
  
 
 readfile($filename);
-
+}
 
 //exit;  
-}
+
 ?>

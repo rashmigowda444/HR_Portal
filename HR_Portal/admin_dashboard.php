@@ -6,9 +6,61 @@
 <div class="row" id="rowdash">
    <h1 id="h1head">Welcome To Admin Portal</h1>
    <h4 id="h4head">Here is a glimpse of the features available on the portal:</h4><br><br>
+   
+    <?php
+
+$sql2="SELECT * from tekhub_apply_leave as a inner JOIN tekhub_employee_personal_details as b on a.emp_id=b.emp_id INNER JOIN tekhub_leaves as c on a.leave_id=c.leave_id WHERE a.leave_status_id=1";
+$result=mysqli_query($conn, $sql2);
+$count=mysqli_num_rows($result);
+   ?>
+   
+  <div style="position:absolute;background-color:white; right:100px; margin-top:-65px;" >
+			   <span id="notification-count"><?php  if($count>0) { echo $count; } ?></span><img src="images/notification.png" data-toggle="modal" data-target="#myModal" width="50px" />
+				</div>		
+   </h4><br><br>
+  
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog" style="left:500px; width:300px;">
+    
+      <div class="modal-content">
+        <div class="modal-header" style="background-color:beige;">
+		</br> 
+	 
+<?php
+ echo "<h3  style='background-color:brown; height:35px'><font color='white'> Applied Leaves<br></font></h3>";
+$sql="SELECT * from tekhub_apply_leave as a inner JOIN tekhub_employee_personal_details as b on a.emp_id=b.emp_id INNER JOIN tekhub_leaves as c on a.leave_id=c.leave_id WHERE a.leave_status_id=1";
+$result=mysqli_query($conn, $sql);
+$response='';
+$count=0;
+while($row=mysqli_fetch_array($result)) {
+	$count=$count+1;
+ echo "<a href='admin_update_leaves.php' style='text-decoration:none;'>".$count.".&nbsp;&nbsp;".$row['emp_name']."<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Applied for the ".$row['leave_type']."<hr id='hrline'>  </a>"; 
+}
+
+?>	 
+ </div>
+     <div class="modal-footer" style="background-color:beige;">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+   
+  
 
    <div class="col-md-6" id="colleftcont">
-
+   <div class="row">
+   <div class="col-md-2">
+    <img src="images/empsearch.png" alt="Tekvity" id="dashimg">
+   </div>
+   <div class="col-md-10">
+    <h3>Employee Directory</h3>
+    <p>Find out coordinates of your colleagues….all compiled in an online directory.</p>
+    <a id="a-btn" href="add_employee.php"><button type="button" class="btn">Add Employee</button></a>    
+  </div>
+  </div><hr>
+  
    <div class="row">
    <div class="col-md-2">
     <img src="images/payslip.png" alt="Tekvity" id="dashimg">
@@ -21,17 +73,7 @@
    </div>
    </div><hr>
   
-   <div class="row">
-   <div class="col-md-2">
-    <img src="images/empsearch.png" alt="Tekvity" id="dashimg">
-   </div>
-   <div class="col-md-10">
-    <h3>Employee Directory</h3>
-    <p>Find out coordinates of your colleagues….all compiled in an online directory.</p>
-    <a id="a-btn" href="add_employee.php"><button type="button" class="btn">Add Employee</button></a>    
-  </div>
-  </div><hr>
-  
+
   <div class="row">
   <div class="col-md-2">
     <img src="images/notice.png" alt="Tekvity" id="dashimg">
@@ -41,8 +83,6 @@
     <p>Get Updates about all the latest activities in the company, including all the important annoucements.</p>
   </div>
   </div><hr>
-  
- 
   <div class="row">
   <div class="col-md-2">
     <img src="images/policy.png" alt="Tekvity" id="dashimg">
@@ -51,10 +91,9 @@
     <h3> Policies & Procedures</h3>
     <p>HR Policies & Procedures or Forms & Formats, all the information you often require is made available round 
    the clock!</p>
+    <a id="a-btn" href="admin_upload_document.php"><button type="button" class="btn">Upload Policy & procedure</button></a> 
   </div>
   </div><hr>
-
-
   <div class="row">
   <div class="col-md-2">
     <img src="images/reward.png" alt="Tekvity" id="dashimg">
@@ -77,8 +116,6 @@
     caring!</p>
   </div>
   </div><hr>
-
-
   <div class="row">
   <div class="col-md-2">
     <img src="images/gallery.png" alt="Tekvity" id="dashimg">
@@ -88,9 +125,6 @@
     <p>Good times are forever! Relish all the beautiful moments of togetherness in this section.</p>
   </div>
   </div><hr>
-  
-
-
   <div class="row">
   <div class="col-md-2">
     <img src="images/celebration.png" alt="Tekvity" id="dashimg">
@@ -119,7 +153,7 @@
      <a id="a-btn" href="admin_generate_report.php"><button type="button" class="btn">Generate Report</button></a>
      <a id="a-btn" href="admin_update_leaves.php"><button type="button" class="btn">Leave Status</button></a>
      <a id="a-btn" href="admin_leave_entitlements.php"><button type="button" class="btn">Entitlements</button></a><br><br>
-     <a id="a-btn" href="admin_apply_leaves.php"><button type="button" class="btn">Assign Leave</button></a>
+     <a id="a-btn" href="admin_apply_leave.php"><button type="button" class="btn">Assign Leave</button></a>
      <a id="a-btn" href="admin_add_leaves.php"><button type="button" class="btn">Add Leave</button></a><br>
   </div>
   </div><hr>

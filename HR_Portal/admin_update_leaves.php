@@ -60,11 +60,11 @@ echo "
 echo"
       </tr>";
     }
-   echo" </tbody>
+   echo" </tbody> 
     
 </table>
 
-";
+";  echo " <a href='admin_dashboard.php'><button type='submit' class='btn btn-success' >Back</button></a>";
 
   
 

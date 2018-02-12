@@ -98,6 +98,7 @@ if(isset($_POST['leave_status'])) {
 $leave_status=$_POST['leave_status'];
 $comment=$_POST['comment'];
 
+
 $sql1="Update tekhub_apply_leave set leave_status_id='$leave_status',reason_cancel='$comment' where emp_id='$eid' and apply_leave_id='$lid' ";
   $retval1=mysqli_query($conn,$sql1);
   if(!$retval1){

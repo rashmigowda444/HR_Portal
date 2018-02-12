@@ -109,7 +109,8 @@ echo '<script>window.location="employee_login.php";</script>';
   </div><br><br><hr id='hrbef'>";
   ?>
 
-<input type="submit" id="btn"  value="Submit" >
+<input type="submit" class="btn btn-success"    value="Submit" > &emsp;&emsp;
+<a href="emp_dashboard.php"><input type="button" class="btn btn-success"   value="Back "></input></a>
 </form>
 </div>
 

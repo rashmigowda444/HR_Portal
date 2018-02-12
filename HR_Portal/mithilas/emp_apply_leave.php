@@ -1,22 +1,11 @@
+
 <?php
 include('emp_header.php');
 
 ?>
-<script>
-function validateForm() { 
-	
-	
-	 var leave_type3 = document.forms["myForm"]["field"].value;
-	
-    if (leave_type3 =="select") { 
-        alert("please select Leave Type");
-        return false;
-    }
-}
-</script>
 
 <script>
-function showleave(str) {  
+function showleave(str) {
   if (str=="") {
     document.getElementById("balance").innerHTML="";
     return;
@@ -30,8 +19,6 @@ function showleave(str) {
   xmlhttp.onreadystatechange=function() {
     if (this.readyState==4 && this.status==200) {
       document.getElementById("balance").innerHTML=this.responseText;
-	  
-	 
     }
   }
   xmlhttp.open("GET","getleave.php?q="+str,true);
@@ -39,6 +26,7 @@ function showleave(str) {
   xmlhttp.send();
 }
 </script>
+
 <?php
 $year= date("Y");
 $emp_id=$_SESSION['empid'];
@@ -57,7 +45,6 @@ $retval=mysqli_query($conn,$holiday);
   $test=trim($holiday_date,'[ " " ]');
   $hol=str_replace('","',',',$test);
 
- 
 ?>
 
 <script>
@@ -66,9 +53,7 @@ var gon = [];
 
 gon["holiday"] = "<?php echo $hol ?>".split(",");
 
-//document.write(gon["holiday"]);
-
-
+document.write(gon["holiday"]);
 
 // 2 helper functions - moment.js is 35K minified so overkill in my opinion
 function pad(num) { return ("0" + num).slice(-2); }
@@ -104,8 +89,6 @@ var fromDate = $datepicker1.datepicker('getDate');
             var toDate = $datepicker2.datepicker('getDate');
 
             var days = calculateDays(fromDate,toDate);
-
-
    
     if (days <= 0) {
       alert("Please enter an end date after the begin date");
@@ -113,34 +96,8 @@ var fromDate = $datepicker1.datepicker('getDate');
     else {
 xmlhttp.onreadystatechange=function() {
     if (this.readyState==4 && this.status==200) {
-      document.getElementById("applied1").innerHTML=this.responseText;
-	  var returned_string = this.responseText;
-	  
-        
-		 var numdays=returned_string.charAt(0);
-		
-		 var leave_type=document.forms["myForm"]["field"].value;
-		 
-		 //var leave_balance=document.forms["myForm"]["balance"].value;
-		 
-		 //alert("ddd"); alert(leave_balance);
-		 
-		 
-
-	 if(numdays>2 && leave_type==1)
-	 {
-		 alert("Cannot take more than two Casual leaves please contact hr team");
-	 }
-	 else
-	 {
-		if(numdays>2 && leave_type==3)
-	 {
-		 alert("Cannot take more than two Sick leaves please contact hr team");
-	 } 
-	 }
-	  
-	 
-	 
+      document.getElementById("applied").innerHTML=this.responseText;
+     
     }
   }
 
@@ -148,9 +105,6 @@ xmlhttp.open("GET","ltest.php?days="+days,true);
   xmlhttp.send();
 
     }
-
-
-
 }
 });
 
@@ -165,7 +119,7 @@ xmlhttp.open("GET","ltest.php?days="+days,true);
   </div>
 
 <div class="well" id="contentwell">
-<form method="post"  name="myForm"  onsubmit="return validateForm()" action="<?php $_PHP_SELF ?>">
+<form method="post" action="<?php $_PHP_SELF ?>">
   <div class="row">
   <div class="col-md-2">
   <label>Leave Type  </label>
@@ -177,16 +131,19 @@ xmlhttp.open("GET","ltest.php?days="+days,true);
   die('could not enter data:'.mysqli_error());
   }
   echo"<div class='col-md-10'>
-<select  id='field' onchange='showleave(this.value)' name='leave_type' required>
-    <option value='select'>-----Select----</option>";
+<select  id='field' onchange='showleave(this.value)' name='leave_type'  required>
+    <option >-----Select----</option>";
   while($row= mysqli_fetch_array($retval)){
   $leave_id=$row['leave_id'];
   $leave_type=$row['leave_type'];
 echo" <option value=".$leave_id.">". $leave_type . "</option>";
   }
-    echo" </select>
+    echo " </select>
   </div>
   </div><br>";
+ 
+ 
+ 
   ?>
 
 <div class="row"   id="rowduration">
@@ -222,28 +179,17 @@ echo" <option value=".$leave_id.">". $leave_type . "</option>";
   </div><br>
 <div id="days"></div>
 
-<div class="row"   id="rowduration">
-  <div class="col-md-2">
-  <label>No Of Days </label>
-  </div>
-  <div class="col-md-10">
-  <div id="applied1" name="no_days" ></div>
-  </div>
-  </div><br>
- 
- 
-
+<div id="applied" name="no_days" ></div>
  
 <div class="row">
   <div class="col-md-2">
   <label>Reason </label>
   </div>
   <div class="col-md-10">
-  <textarea name="reason"  style="width:350px;height:35px;border-radius:5px;border:none;background-color:white;" rows="4" cols="50"  required></textarea>
+  <textarea name="reason" id="field"  rows="4" cols="50"  required></textarea>
   </div>
   </div><br><br><hr id="hrbef">
-  <input type="submit" class="btn btn-success"    value="Submit" name="submit">&emsp;&emsp;
-  <a href="emp_dashboard.php"><input type="button"  class="btn btn-success"   value="Back"></input></a>
+  <input type="submit" id="btn"  value="Submit" name="submit" >
 </form>
 
 </div>
@@ -256,48 +202,28 @@ include('footer.php');
 
 
 <?php
-if(isset($_POST['leave_type']))
+if(isset($_POST['submit']))
 {
-$leave_type=$_POST['leave_type'];
-if($leave_type=='select')
-{
-	echo "<script> alert('please select leave type'); </script>";
-	exit;
-}
-$from_date=$_POST['fromdate'];
-$to_date=$_POST['todate'];
-$no_days=$_SESSION['no_days'];
-if(isset($_POST['duration']))
-{	$duration=$_POST['duration'];
-} else{ $duration=1;}
-
-$reason=$_POST['reason'];
-$id=$_SESSION['empid'];
-
-if($leave_type==1 && $no_days>2)
-{
-echo "<script >alert('Cannot taken morethan two Casual leaves please contact hr team')</script>";
-exit;
-}
-
-else if($leave_type==3 && $no_days>2)
-{
-echo "<script >alert('Cannot taken morethan two Sick leaves please contact hr team')</script>";
-exit;
-}
-$sql="select * from tekhub_user_leave as a inner join tekhub_leaves as b on a.leave_id=b.leave_id where a.leave_id='$leave_type' and emp_id='$id'";
-  $retval=mysqli_query($conn,$sql); 
+echo $leave_type=$_POST['leave_type'];
+echo $from_date=$_POST['fromdate'];
+echo $to_date=$_POST['todate'];
+echo $no_days=$_SESSION['no_days'];
+echo $duration=$_POST['duration'];
+echo$reason=$_POST['reason'];
+echo $id=$_SESSION['empid'];
+$sql="select * from tekhub_user_leave where leave_id='$leave_type' and emp_id='$id'";
+  $retval=mysqli_query($conn,$sql);
+ 
   while($row= mysqli_fetch_array($retval)){
 $leave_balance=$row['leave_balance'];
- $leave_name=$row['leave_type'];
+   
 }
+
 $leave_balance_new=($leave_balance-$no_days);
 $leave_balance_duration=($leave_balance-$duration);
-$lop_duration=$no_days;
 
-if($no_days <= $leave_balance)
-{ 
-$leave="Select * from tekhub_leaves as A join tekhub_user_leave as B on A.leave_id=B.leave_id where A.leave_id='$leave_type'";
+if($no_days <= $leave_balance){
+$leave="Select leave_id,leave_type,leave_entitlements from tekhub_leaves where leave_id='$leave_type'";
 $retval1=mysqli_query($conn,$leave);
 if(!$retval1)
 {
@@ -309,8 +235,9 @@ $leave_name = $row1['leave_type'];
 $leave_entitlements = $row1['leave_entitlements'];
 }
 if($leave_name!="LOP"){
+
 if(isset($_POST['duration'])){
-$sql1="INSERT INTO tekhub_apply_leave(emp_id,leave_id,from_date,to_date,duration,comment,no_of_days,leave_balance,leave_status_id) VALUES('$id','$leave_id','$from_date','$to_date','$duration','$reason','$duration','$leave_balance_duration','1')";
+$sql1="INSERT INTO tekhub_apply_leave   (emp_id,leave_id,from_date,to_date,duration,comment,no_of_days,leave_balance,leave_status_id) VALUES('$id','$leave_id','$from_date','$to_date','$duration','$reason','$duration','$leave_balance_duration','1')";
 $retval2=mysqli_query($conn,$sql1);
 if(!$retval2){
 die('could not enter data:'.mysqli_error($conn));
@@ -321,41 +248,21 @@ if(!$retval4){
 die('could not enter data:'.mysqli_error($conn));
 }
 echo '<script language="javascript"> alert("Added successfully")</script>';
-exit;
 }
 else{
-$sql2="INSERT INTO tekhub_apply_leave(emp_id,leave_id,from_date,to_date,duration,comment,no_of_days,leave_balance,leave_status_id) VALUES ('$id','$leave_id','$from_date','$to_date','$duration','$reason','$no_days','$leave_balance_new','1')";
+$sql2="INSERT INTO tekhub_apply_leave (emp_id,leave_id,from_date,to_date,duration,comment,no_of_days,leave_balance,leave_status_id) VALUES ('$id','$leave_id','$from_date','$to_date','0','$reason','$no_days','$leave_balance_new','1')";
 $retval3=mysqli_query($conn,$sql2);
 if(!$retval3){
 die('could not enter data:'.mysqli_error($conn));
 }
-$user="UPDATE tekhub_user_leave set leave_balance='$leave_balance_new' where emp_id='$id' and leave_id='$leave_type'";
+$user="UPDATE tekhub_user_leave set leave_balance='$leave_balance_new'and leave_taken='$no_days' where emp_id='$id' and leave_id='$leave_type'";
 $retval4=mysqli_query($conn,$user);
 if(!$retval4){
 die('could not enter data:'.mysqli_error($conn));
 }
 echo '<script language="javascript"> alert("Added successfully")</script>';
-exit;
 }
 }
-else if($leave_name=="LOP")
-{ 
-
-	$sql2="INSERT INTO tekhub_apply_leave (emp_id,leave_id,from_date,to_date,comment,
-no_of_days,leave_status_id)
-VALUES    ('$id','$leave_type','$from_date','$to_date','$reason','$lop_duration','1')";
-$retval3=mysqli_query($conn,$sql2);
-if(!$retval3){
-die('could not enter data:'.mysqli_error($conn));
-}
-echo '<script language="javascript"> alert("Added successfully")</script>';
-exit;
-
-	
-	
-	
-	
-} 
 else{
 $lop=$leave_entitlements+$no_days;
 $lop_duration=$leave_entitlements+$duration;
@@ -372,7 +279,6 @@ if(!$retval4){
 die('could not enter data:'.mysqli_error($conn));
 }
 echo '<script language="javascript"> alert("Added successfully")</script>';
-exit;
 }
 else{
 $sql2="INSERT INTO tekhub_apply_leave (emp_id,leave_id,from_date,to_date,duration,comment,no_of_days,leave_balance,leave_status_id) VALUES ('$id','$leave_id','$from_date','$to_date','0','$reason','$no_days','$lop','1')";
@@ -386,26 +292,19 @@ if(!$retval4){
 die('could not enter data:'.mysqli_error($conn));
 }
 echo '<script language="javascript"> alert("Added successfully")</script>';
+}
+}
+}
+
+
+
+else{
+echo '<script language="javascript"> alert("Insufficient leave balance"+leave+leave_applied)</script>';
 exit;
 }
-}
-}
-else if($no_days == 1 && $duration<=$leave_balance){
-    $sql2="INSERT INTO tekhub_apply_leave (emp_id,leave_id,from_date,to_date,duration,comment,no_of_days,leave_balance,leave_status_id) VALUES ('$id','$leave_type','$from_date','$to_date','$duration','$reason','$no_days','$leave_balance','1')";
-    $retval3=mysqli_query($conn,$sql2);
-    if(!$retval3){
-      die('could not enter data:'.mysqli_error($conn));
-    }
-    $user="UPDATE tekhub_user_leave set leave_balance='$leave_balance_duration' where emp_id='$id' and leave_id='$leave_type'";
-    $retval4=mysqli_query($conn,$user);
-    if(!$retval4){
-      die('could not enter data:'.mysqli_error($conn));
-    }
-    echo '<script language="javascript"> alert("Applied successfully1")</script>';
-	exit;
-  }
-if($leave_type ==4)
-{ 
+
+if($leave_type ==2)
+{
 $sql2="INSERT INTO tekhub_apply_leave (emp_id,leave_id,from_date,to_date,duration,comment,no_of_days,leave_balance,leave_status_id)
 VALUES ('$id','$leave_id','$from_date','$to_date','0','$reason','$no_days','$leave_balance_new','1')";
 
@@ -413,35 +312,18 @@ $retval2=mysqli_query($conn,$sql2);
 if(!$retval2){
 die('could not enter data:'.mysqli_error($conn));
 }
-$user_duration="UPDATE tekhub_user_leave set leave_taken='$lop_duration' where emp_id='$id' and leave_id='$leave_type'";
+$user_duration="UPDATE tekhub_user_leave set leave_balance='$lop_duration' where emp_id='$id' and leave_id='$leave_type'";
 $retval4=mysqli_query($conn,$user_duration);
 if(!$retval4){
 die('could not enter data:'.mysqli_error($conn));
 }
 echo '<script language="javascript"> alert("Added successfully")</script>';
-exit;
 }
-else{ 
-    if( $leave_type==1){
-	echo '<script language="javascript"> alert("Insufficient Casual leave balance");</script>'; }
-	 if( $leave_type==2){
-	echo '<script language="javascript"> alert("Insufficient Earned leave balance");</script>'; }
-	 if( $leave_type==3){
-	echo '<script language="javascript"> alert("Insufficient Sick leave balance");</script>'; }
-	if( $leave_type==4){
-	echo '<script language="javascript"> alert("Insufficient Lop leave balance");</script>'; }
-	
-}
-/*else{
-echo '<script>      alert("Insufficient2 "+"'.$leave_name.'"+" balance");                  </script>';
-
-}//inside if else closedir */
-
-
-
-
+else{
+echo '<script language="javascript"> alert("Insufficient leave balance"+leave+leave_applied)</script>';
 }
 
+}
 ?>
 
 
