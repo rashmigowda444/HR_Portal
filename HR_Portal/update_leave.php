@@ -81,13 +81,13 @@ $sql='select * from tekhub_leave_status';
     echo" </select>
 </td>
 <td>
-    <button id='submit' name='btnsubmit' type='submit'>Update</button>
+    <button id='submit' class='btn btn-success' name='btnsubmit' type='submit'>Update</button>
  </td></tr>
 </tbody>
 </table>
 <div id='divreason' style='display: none;'>
     <label>Reason:</label>
-    <textarea class='form-control'  name='comment'></textarea>
+    <textarea class='form-control'  name='comment'></textarea><br>
 </div>
 </form>";
 
@@ -114,7 +114,7 @@ window.location='admin_update_leaves.php';
 
  mysqli_close($conn);
 ?>
-
+  <a href="admin_dashboard.php"><input type="button"  class="btn btn-success" value="Back"></input></a>
 </div>
 </div><br><hr id="hrline">
 

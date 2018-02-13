@@ -2,8 +2,14 @@
   include('header_admin.php');
 date_default_timezone_set('GMT');
 ?>
-
-
+<script>
+$(function() {
+    $( "#field1" ).autocomplete({
+        source: 'searchname.php'
+		
+    });
+});
+</script>
 <div class="row" >
   <div class="well" id="headingwell">
   <h3 id="headingdash">Add Employee</h3>
@@ -19,14 +25,12 @@ date_default_timezone_set('GMT');
   <input name="id" class="form-control" id="field" type="text" required>
   </div>
   </div><br>
-
-
   <div class="row">
   <div class="col-md-3">
   <label>Employee Name:</label>
   </div>
   <div class="col-md-9">
-  <input name="name" class="form-control" id="field" type="text" required>
+  <input class="form-control" autocomplete='off' placeholder='Search Name...' id="field1" name="name" style="width:350px;height:35px;border-radius:5px;border:none;background-color:white;" required></td>
   </div>
   </div><br>
 
@@ -82,7 +86,7 @@ date_default_timezone_set('GMT');
   <label>PF Number :</label>
   </div>
   <div class="col-md-9">
-  <input name="pf" class="form-control" id="field" type="text">
+  <input name="pf" class="form-control" id="field" type="text" pattern="^[A-Z]{2}/\d{5}/\d{7}$">
   </div>
   </div><br>
  

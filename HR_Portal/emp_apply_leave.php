@@ -16,6 +16,30 @@ function validateForm() {
 </script>
 
 <script>
+function validatetodate() { 
+	
+	 var fromdate1=document.getElementById("datepicker1").value;
+	 if(fromdate1==''||fromdate1==null)
+	 {
+		 alert("please Select Leave from the date");
+		 return false;
+	 }
+	
+}
+</script>
+<script>
+function validatefromdate() { 
+	var startDate = document.getElementById("datepicker1").value;
+    var endDate = document.getElementById("datepicker2").value;
+
+    if ((Date.parse(startDate) > Date.parse(endDate))) {
+        alert("From Date should be lesser than To Date");
+        document.getElementById("datepicker2").value = "";
+    } 
+	
+}
+</script>
+<script>
 function showleave(str) {  
   if (str=="") {
     document.getElementById("balance").innerHTML="";
@@ -93,9 +117,11 @@ function calculateDays(first,last) {
 // ONLY using jQuery here because OP already used it. I use 1.11 so IE8+
 $(document).ready(function(){
 
+
+
 var $datepicker1 =  $( "#datepicker1" );
     var $datepicker2 =  $( "#datepicker2" );
-
+		
     $datepicker1.datepicker();
     $datepicker2.datepicker({
          onClose: function() {
@@ -109,6 +135,7 @@ var fromDate = $datepicker1.datepicker('getDate');
    
     if (days <= 0) {
       alert("Please enter an end date after the begin date");
+	  document.getElementById("datepicker2").value="";
     }
     else {
 xmlhttp.onreadystatechange=function() {
@@ -121,9 +148,7 @@ xmlhttp.onreadystatechange=function() {
 		
 		 var leave_type=document.forms["myForm"]["field"].value;
 		 
-		 //var leave_balance=document.forms["myForm"]["balance"].value;
 		 
-		 //alert("ddd"); alert(leave_balance);
 		 
 		 
 
@@ -206,7 +231,7 @@ echo" <option value=".$leave_id.">". $leave_type . "</option>";
   <label> From Date </label>
   </div>
   <div class="col-md-10">
-  <input name="fromdate"  id="datepicker1" type="text"  style="width:350px;" required>
+  <input name="fromdate"  id="datepicker1" type="text" onchange="validatefromdate();"   style="width:350px;" required>
   <span><img src="images/calendar.png" ></span>
   </div>
 </div><br>
@@ -216,7 +241,7 @@ echo" <option value=".$leave_id.">". $leave_type . "</option>";
   <label>To Date </label>
   </div>
   <div class="col-md-10" id="colsel">
-<input name="todate"  id="datepicker2" type="text"  style="width:350px;"  required>
+<input name="todate"  id="datepicker2" type="text" onchange="validatetodate();"  style="width:350px;"  required>
   <span><img src="images/calendar.png" ></span>
   </div>
   </div><br>
@@ -320,8 +345,9 @@ $retval4=mysqli_query($conn,$user_duration);
 if(!$retval4){
 die('could not enter data:'.mysqli_error($conn));
 }
-echo '<script language="javascript"> alert("Added successfully")</script>';
-exit;
+echo '<script language="javascript"> alert("Applied successfully")</script>';
+?>
+<script>  document.location="emp_dashboard.php";  </script> <?php
 }
 else{
 $sql2="INSERT INTO tekhub_apply_leave(emp_id,leave_id,from_date,to_date,duration,comment,no_of_days,leave_balance,leave_status_id) VALUES ('$id','$leave_id','$from_date','$to_date','$duration','$reason','$no_days','$leave_balance_new','1')";
@@ -335,7 +361,8 @@ if(!$retval4){
 die('could not enter data:'.mysqli_error($conn));
 }
 echo '<script language="javascript"> alert("Added successfully")</script>';
-exit;
+?>
+<script>  document.location="emp_dashboard.php";  </script> <?php
 }
 }
 else if($leave_name=="LOP")
@@ -348,8 +375,9 @@ $retval3=mysqli_query($conn,$sql2);
 if(!$retval3){
 die('could not enter data:'.mysqli_error($conn));
 }
-echo '<script language="javascript"> alert("Added successfully")</script>';
-exit;
+echo '<script language="javascript"> alert("Applied successfully")</script>';
+?>
+<script>  document.location="emp_dashboard.php";  </script> <?php
 
 	
 	
@@ -372,7 +400,8 @@ if(!$retval4){
 die('could not enter data:'.mysqli_error($conn));
 }
 echo '<script language="javascript"> alert("Added successfully")</script>';
-exit;
+?>
+<script>  document.location="emp_dashboard.php";  </script> <?php
 }
 else{
 $sql2="INSERT INTO tekhub_apply_leave (emp_id,leave_id,from_date,to_date,duration,comment,no_of_days,leave_balance,leave_status_id) VALUES ('$id','$leave_id','$from_date','$to_date','0','$reason','$no_days','$lop','1')";
@@ -385,8 +414,9 @@ $retval4=mysqli_query($conn,$user);
 if(!$retval4){
 die('could not enter data:'.mysqli_error($conn));
 }
-echo '<script language="javascript"> alert("Added successfully")</script>';
-exit;
+echo '<script language="javascript"> alert("Applied successfully")</script>';
+?>
+<script>  document.location="emp_dashboard.php";  </script> <?php
 }
 }
 }
@@ -402,7 +432,8 @@ else if($no_days == 1 && $duration<=$leave_balance){
       die('could not enter data:'.mysqli_error($conn));
     }
     echo '<script language="javascript"> alert("Applied successfully1")</script>';
-	exit;
+	?>
+<script>  document.location="emp_dashboard.php";  </script> <?php
   }
 if($leave_type ==4)
 { 
@@ -419,7 +450,8 @@ if(!$retval4){
 die('could not enter data:'.mysqli_error($conn));
 }
 echo '<script language="javascript"> alert("Added successfully")</script>';
-exit;
+?>
+<script>  document.location="emp_dashboard.php";  </script> <?php
 }
 else{ 
     if( $leave_type==1){

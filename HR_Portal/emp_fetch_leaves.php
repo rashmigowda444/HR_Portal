@@ -42,8 +42,10 @@ if(mysqli_num_rows($retval1)==0)
 {
 
 	echo "<script> alert('No data found leaves not yet applied') </script>";
-	exit;
+	
 } 	
+else
+{
 while($row= mysqli_fetch_array($retval1)){
  $emp_name=$row['emp_name'];
 $leave_type=$row['leave_type'];
@@ -67,7 +69,7 @@ echo "
 		<td>$status</td>
 		<td>$reason_cancel</td>
 		";
-}
+} }
 echo"
       </tr>
  </tbody>

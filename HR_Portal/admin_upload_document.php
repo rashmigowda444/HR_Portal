@@ -119,10 +119,13 @@ if (isset($_POST['submit']))
             else 
                 //echo   $filename = '1' . '-' . $filename;
             //set target directory
-			///chmod('./uploads/',0777);
-            //$path = "./uploads/";   
-			chmod('C:/xampp/htdocs/123/uploads/',0777);
-			 $path = 'C:/xampp/htdocs/123/uploads/';
+			chmod('./uploads/',0777);
+            $path = "./uploads/";   
+			//chmod('C:/xampp/htdocs/123/uploads/',0777);
+			 //$path = 'C:/xampp/htdocs/123/uploads/';
+			 
+			 
+			 
              $file_url=$path.$filename;
             $created = @date('Y-m-d H:i:s');
            // move_uploaded_file($_FILES['file1']['tmp_name'],($path . $filename));
@@ -132,7 +135,13 @@ if (isset($_POST['submit']))
         $sql = "INSERT INTO tekhub_upload_files(filename, created,target_path) VALUES('$filename', '$created','$file_url')";
            $returnval=mysqli_query($conn, $sql);
 		   if($returnval==1){
-		   echo "<script> alert('file uploaded successfully'); </script>"; }
+		   echo "<script> alert('file uploaded successfully'); </script>"; 
+		   //header("Location: admin_dashboard.php"); 
+		 ?>  <script>
+           document.location="admin_dashboard.php";
+             </script>
+		   <?php
+		   }
 		   else{ echo "<script> alert('error'); </script>";  }
 			
         }
@@ -142,8 +151,8 @@ if (isset($_POST['submit']))
 			echo "<script> alert('please upload only pdf and documents'); </script>";
         }
     }
-    else
-        header("Location: index.php");
+    else {}
+       // 
 }
 ?>
 

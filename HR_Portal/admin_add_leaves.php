@@ -165,6 +165,9 @@ die('could not enter data:'.mysqli_error($conn));
 else
    {
 echo '<script language="javascript"> alert("Added successfully")</script>';
+?>  <script>  document.location="admin_dashboard.php";  </script>
+ <?php
+
    }
 }
 } else {  //leave id 5 setting up
@@ -201,6 +204,8 @@ else
  }
 }
 echo '<script language="javascript"> alert("Added successfully")</script>';
+?>
+<script>  document.location="admin_dashboard.php";  </script> <?php
  }
 }
       

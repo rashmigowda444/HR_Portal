@@ -2,18 +2,11 @@
 include('header_admin.php');
 	
 ?>
-
-
-
 <script type="text/javascript">
 function searchone(str)
 {
-	
-	
-	
 var xmlhttp;
 var emp_name= document.getElementById("field1").value;
-
 if(emp_name=="")
 { alert("please choose name");
 }
@@ -32,8 +25,6 @@ else
   xmlhttp.open("POST", "searchone_for_admin_apply_leave.php", true);          
   xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");            
   xmlhttp.send(the_data);       
-
-
   xmlhttp.onreadystatechange = function() {
     if (xmlhttp.readyState == 4) {
       document.getElementById("balance").innerHTML = xmlhttp.responseText;
@@ -63,8 +54,30 @@ function validateForm() {
         return false;
     }
 	 var durationval1 = document.forms["myForm"]["applied"].value; alert(durationval1);
+}
+</script>
+<script>
+function validatetodate() { 
 	
-    
+	 var fromdate1=document.getElementById("datepicker1").value;
+	 if(fromdate1==''||fromdate1==null)
+	 {
+		 alert("please Select Leave from the date");
+		 return false;
+	 }
+	
+}
+</script>
+<script>
+function validatefromdate() { 
+	var startDate = document.getElementById("datepicker1").value;
+    var endDate = document.getElementById("datepicker2").value;
+
+    if ((Date.parse(startDate) > Date.parse(endDate))) {
+        alert("From Date should be lesser than To Date");
+        document.getElementById("datepicker1").value =null;
+    } 
+	
 }
 </script>
 <script>
@@ -117,6 +130,7 @@ var fromDate = $datepicker1.datepicker('getDate');
     
     if (days <= 0) {	
       alert("Please enter an end date after the begin date");
+	   document.getElementById("datepicker2").value=null;
     }
     else {
 		 if (window.XMLHttpRequest) {
@@ -195,7 +209,7 @@ else{
  <div class='search-box'>
         <input type='text' autocomplete='off' placeholder='Search Name...' name='emp_name'  onchange="getname(this)" id="field1" 
 		
-		style="width:350px;height:35px;border-radius:5px;border:none;background-color:white;'   name='leave_type"
+		style="width:350px;height:35px;border-radius:5px;border:none;background-color:white;"
 		required> </td>
 <p id="demo"></p>		
 
@@ -229,7 +243,7 @@ else{
 
   <?php	 $emp_id=911;
   if(isset( $_SESSION['0.5']))
-  {echo "dddDDD";
+  {
   }
 if(isset($_SESSION['emp_id2']))
 {     
@@ -289,6 +303,7 @@ var fromDate = $datepicker1.datepicker('getDate');
     
     if (days <= 0) {
       alert("Please enter an end date after the begin date");
+	    document.getElementById("datepicker2").value="";
     }
     else {
 xmlhttp.onreadystatechange=function() {
@@ -324,7 +339,7 @@ xmlhttp.open("GET","ltest.php?days="+days,true);
   <label> From Date </label>
   </div>
   <div class="col-md-10">
-  <input name="fromdate"  id="datepicker1" type="text"  style="width:350px;" required>
+  <input name="fromdate"  id="datepicker1" type="text" onchange="validatefromdate()" style="width:350px;" required>
   <span><img src="images/calendar.png" ></span>
   </div>
  </div><br>
@@ -334,7 +349,7 @@ xmlhttp.open("GET","ltest.php?days="+days,true);
   <label>To Date </label>
   </div>
   <div class="col-md-10" id="colsel">
-<input name="todate"  id="datepicker2" type="text"  style="width:350px;"  required>
+<input name="todate"  id="datepicker2" type="text" onchange="validatetodate()" style="width:350px;"  required>
   <span><img src="images/calendar.png" ></span>
   </div>
   </div><br>

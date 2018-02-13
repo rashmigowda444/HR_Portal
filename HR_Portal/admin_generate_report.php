@@ -433,7 +433,7 @@ echo "<tr>
   
  }else
  {
-$sql="Select * from tekhub_user_leave as A inner join tekhub_employee_personal_details as B on A.emp_id=B.emp_id INNER JOIN tekhub_leaves as c on c.leave_id=A.leave_id where year(A.year)='$year1' ORDER BY a.emp_id ASC";
+$sql="Select * from tekhub_user_leave as A inner join tekhub_employee_personal_details as B on A.emp_id=B.emp_id INNER JOIN tekhub_leaves as c on c.leave_id=A.leave_id where year(A.year)='$year1' ORDER BY A.emp_id ASC";
 
   $retval=mysqli_query($conn,$sql);
 	$count=mysqli_num_rows($retval);
