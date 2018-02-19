@@ -38,10 +38,6 @@ echo '<script>window.location="employee_login.php";</script>';
     </script>
 </head>
 
-<style>
-
-</style>
-
 <body class="body">
 <div id="divtop">
 <ul id="ultopnav">
@@ -81,7 +77,10 @@ echo '<script>window.location="employee_login.php";</script>';
   <label>Select Year : </label>
   </div>
  <div class="col-md-6">
-<select name="year" class="form-control" id="year" id="field"></select>
+<select name="year" class="form-control" id="year" style="width:350px;height:35px;border-radius:5px;border:none;background-color:white;
+" required>
+<option value='' >-----Select----</option>
+</select>
 </div>
 </div>
 <br>
@@ -97,8 +96,8 @@ echo '<script>window.location="employee_login.php";</script>';
   die('could not enter data:'.mysqli_error());
   }
   echo"<div class='col-md-6'>
-  <select name='leave_month' class='form-control' required>
-    <option >-----Select----</option>";
+  <select name='leave_month' class='form-control' id='field' required>
+    <option value='' >-----Select----</option>";
   while($row= mysqli_fetch_array($retval)){
   $month_value=$row['month_value'];
   $month_name=$row['month_name'];
@@ -109,8 +108,8 @@ echo '<script>window.location="employee_login.php";</script>';
   </div><br><br><hr id='hrbef'>";
   ?>
 
-<input type="submit" class="btn btn-success"    value="Submit" > &emsp;&emsp;
-<a href="emp_dashboard.php"><input type="button" class="btn btn-success"   value="Back "></input></a>
+<button type="submit" id="btn" class="btn">Submit</button>&emsp;&emsp;
+<a id="a-btn" href="emp_dashboard.php"><button type="button" id="btn" class="btn">Back</button></a>
 </form>
 </div>
 
