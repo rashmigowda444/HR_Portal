@@ -104,7 +104,7 @@ $sql='select * from tekhub_leave_status';
     <label>Reason:</label>
     <textarea class='form-control'  name='comment'></textarea><br>
 </div>
- <a href='admin_update_leaves.php'><input type='button'  class='btn btn-default' value='Back'></input></a>
+ <a href='admin_update_leaves_notification.php?eid=$eid&leave_id=$lid'><input type='button'  class='btn btn-default' value='Back'></input></a>
 </form>";
 
 
@@ -127,18 +127,15 @@ $sql1="Update tekhub_apply_leave set leave_status_id='$leave_status',reason_canc
 else{
 echo "<script>
 alert('updated successfully');
-window.location='admin_update_leaves.php';
+window.location='admin_update_leaves_notification.php?eid=$eid&leave_id=$lid';
 </script>";
 }
 }
-
  mysqli_close($conn);
 ?>
- 
+
 </div>
 </div><br><hr id="hrline">
-
-
 <?php
   include('footer.php');
 ?>

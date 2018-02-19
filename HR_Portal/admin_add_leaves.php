@@ -105,9 +105,9 @@ else{
   <label>Add Leave Days </label>
   </div>
    <div class="col-md-10">
- <input type="number" style="width:350px;height:35px;border-radius:5px;border:none;background-color:white;"  name="norofdays" id="addleaves" ></br>
+ <input type="number"  min="1" style="width:350px;height:35px;border-radius:5px;border:none;background-color:white;"  name="norofdays" id="addleaves" ></br>
   </div>
-  <div><br><br><hr id="hrbef"> 
+  <div><br><br>
   <input type="submit"  value="Submit" class= "btn btn-success" name="submit" >
   &emsp;&emsp;
   <a href="admin_dashboard.php"><input type="button" class="btn btn-success" value="Back "></input></a>
@@ -120,7 +120,7 @@ else{
   </div>
 <br> </form>
 
-</div></div><br><hr id="hrline">
+</div></div><br>
 
 
 <?php

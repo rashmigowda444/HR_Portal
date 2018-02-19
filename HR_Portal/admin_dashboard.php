@@ -34,7 +34,9 @@ $response='';
 $count=0;
 while($row=mysqli_fetch_array($result)) {
 	$count=$count+1;
- echo "<a href='admin_update_leaves.php' style='text-decoration:none;'>".$count.".&nbsp;&nbsp;".$row['emp_name']."<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Applied for the ".$row['leave_type']."<hr id='hrline'>  </a>"; 
+	 $emp_id_forleave=$row['emp_id'];
+	 $emp_leave_id=$row['apply_leave_id'];
+ echo "<a href='admin_update_leaves_notification.php?eid=$emp_id_forleave&leave_id=$emp_leave_id' style='text-decoration:none;'>".$count.".&nbsp;&nbsp;".$row['emp_name']."<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Applied for the ".$row['leave_type']."<hr id='hrline'>  </a>"; 
 }
 
 ?>	 

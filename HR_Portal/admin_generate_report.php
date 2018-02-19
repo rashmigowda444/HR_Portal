@@ -172,7 +172,7 @@ $(function() {
     <option value="div2">Leave Type</option>
   </select></br>
   </div> <div >&emsp;
-  <a href="admin_dashboard.php"><input type="button"  class="btn btn-success" value="Back"></input></a> </div>
+  <a href="admin_dashboard.php"><input type="button"  class="btn btn-default" value="Back"></input></a> </div>
   </div>
 </div>
 </div><br>
@@ -216,8 +216,8 @@ $(function() {
     </tbody>
 </table>
 <hr>
-<input type="submit" name="sub1" class="btn btn-success" value="Submit" >&emsp;&emsp;
-<a href="admin_dashboard.php"><input type="button"  class="btn btn-success" value="Back"></input></a>
+<input type="submit" name="sub1" class="btn btn-default" value="Submit" >&emsp;&emsp;
+<a href="admin_dashboard.php"><input type="reset"  class="btn btn-success" value="Back"></input></a>
 </form>
 </div>
 </div>
@@ -267,7 +267,7 @@ $(function() {
 </form>
 </div>
 </div><br>
-<br><hr id="hrline">
+<!--<br><hr id="hrline">-->
 <?php
 if (isset($_POST['sub1'])) 
 {   
@@ -299,7 +299,7 @@ while($row= mysqli_fetch_array($retval1,MYSQLI_ASSOC))
 echo "<table class='table table-bordered view' id='leave_report'>
     <thead>
       <tr bgcolor='	#A52A2A'> 
-	  <th><font color='#ffffff'>
+	  <th><font color='#ffffff'>Employee Name
 	  </font></th> 
 	  <th><font color='#ffffff'>Employee id</font></th>
 		<th><font color='#ffffff'>Leave Type</font></th><th><font color='#ffffff'>Leave Entitlements</font></th>
@@ -317,7 +317,9 @@ echo "<table class='table table-bordered view' id='leave_report'>
 	if($count>=1)
 	{}
 
-else {echo '<script language="javascript"> alert("NO Data found")</script>';}
+else {echo '<script language="javascript"> alert("NO Data found1")</script>';
+
+}
 
 	if(!$retval1) 
 		{  
@@ -482,7 +484,7 @@ echo "<tr>
   ?>
   </div>
 </div>
-
+<br><hr id="hrline">
 <?php
 
   include('footer.php');

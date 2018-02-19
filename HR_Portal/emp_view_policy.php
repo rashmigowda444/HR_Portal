@@ -108,8 +108,10 @@ die('Could not fetch data: ' . mysqli_error($conn));
    
     while($row1= mysqli_fetch_array($retval,MYSQLI_ASSOC))
 	{  $file_url=$row1['target_path'];
+       $filename1=$row1['filename'];
+	   $url_full=$file_url.$filename1;
      
-	}  echo"  <a href='view_policy_pdf.php?url=$file_url'>VIEW MORE.</a> </p> ";
+	}  echo"  <a href='view_policy_pdf.php?url=$url_full'>VIEW MORE.</a> </p> ";
 		 
          }
 		 echo "<form  method='post'  action='view_policy_pdf.php?url=$file_url' enctype='multipart/form-data'> "; ?>

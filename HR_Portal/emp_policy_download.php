@@ -12,10 +12,11 @@ $retval=mysqli_query($conn,$sql);
 die('Could not fetch data: ' . mysqli_error($conn));
       }
       while($row1= mysqli_fetch_array($retval,MYSQLI_ASSOC))
-	{ echo $file_url=$row1['target_path'];
+	{  $file_url=$row1['target_path'];
            $filename_from_db=$row1['filename'];
 	}
- $filePath='C:/xampp/htdocs/123/uploads/'.$filename_from_db;//emp_policy.pdf';//$file_url;
+// $filePath='C:/xampp/htdocs/123/uploads/'.$filename_from_db;//emp_policy.pdf';//$file_url;
+  $filePath=$file_url.$filename_from_db;
 if(!empty($filePath) && file_exists($filePath)){
     // Define headers
     header("Cache-Control: public");

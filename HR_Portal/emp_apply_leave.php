@@ -267,8 +267,8 @@ echo" <option value=".$leave_id.">". $leave_type . "</option>";
   <textarea name="reason"  style="width:350px;height:35px;border-radius:5px;border:none;background-color:white;" rows="4" cols="50"  required></textarea>
   </div>
   </div><br><br><hr id="hrbef">
-  <input type="submit" class="btn btn-success"    value="Submit" name="submit">&emsp;&emsp;
-  <a href="emp_dashboard.php"><input type="button"  class="btn btn-success"   value="Back"></input></a>
+  <input type="submit" class="btn btn-default"    value="Submit" name="submit">&emsp;&emsp;
+  <a href="emp_dashboard.php"><input type="button"  class="btn btn-default"   value="Back"></input></a>
 </form>
 
 </div>

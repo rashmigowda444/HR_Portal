@@ -2,6 +2,7 @@
 include('header_admin.php');
 	
 ?>
+
 <script type="text/javascript">
 function searchone(str)
 {
@@ -44,17 +45,6 @@ $('form').each(function() {
     $('input[type=submit]').hide();
    });
 });
-</script>
-<script>
-function validateForm() {  
-	 var leave_type3 = document.forms["myForm"]["field"].value;
-	  
-	  if (leave_type3 =="select") { 
-        alert("please select Leave Type");
-        return false;
-    }
-	 var durationval1 = document.forms["myForm"]["applied"].value; alert(durationval1);
-}
 </script>
 <script>
 function validatetodate() { 
@@ -199,7 +189,7 @@ else{
   </div>
 
 <div class="well" id="contentwell">
-<form method="post" name="myForm"  onsubmit="return validateForm()">
+<form method="post">
 
 <div class="row">
 <div class="col-md-2">
@@ -229,8 +219,8 @@ else{
   die('could not enter data:'.mysqli_error());
   }
   echo"<div class='col-md-10'>
- <select  id='field' onchange='searchone(this.value)' name='leave_type'  required>
-    <option value='select'>-----Select----</option>";
+ <select required id='field' onchange='searchone(this.value)' class='leaveid' name='leave_type' required>
+    <option value=''>-----Select----</option>";
   while($row= mysqli_fetch_array($retval)){
   $leave_id=$row['leave_id'];
   $leave_type=$row['leave_type'];
@@ -372,8 +362,8 @@ xmlhttp.open("GET","ltest.php?days="+days,true);
   </div><br><br> 
   <div class="row">
    
- <button  class="btn btn-success"  type="submit">submit</button>
-&emsp;&emsp;<a href="admin_dashboard.php"><input type="button"   class="btn btn-success"  value="Back"></input></a>
+ <button  class="btn btn-default"  type="submit">submit</button>
+&emsp;&emsp;<a href="admin_dashboard.php"><input type="button"   class="btn btn-default"  value="Back"></input></a>
 
   
  

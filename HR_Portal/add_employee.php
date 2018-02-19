@@ -13,7 +13,7 @@
   <label>Employee Id :</label>
   </div>
   <div class="col-md-9">
-  <input name="id"  id="field" type="text" >
+  <input name="id"  id="field" type="text" required>
   </div>
   </div><br>
   <div class="row">
@@ -21,7 +21,7 @@
   <label>Employee Name :</label>
   </div>
   <div class="col-md-9">
-  <input name="name"  id="field" type="text">
+  <input name="name"  id="field" type="text" required>
   </div>
   </div><br>
   <div class="row">
@@ -29,7 +29,7 @@
   <label>Employee Password :</label>
   </div>
   <div class="col-md-9">
-  <input name="password"  id="field" type="password">
+  <input name="password"  id="field" type="password" required>
   </div>
   </div><br>
   <div class="row">
