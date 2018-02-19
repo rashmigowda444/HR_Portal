@@ -15,9 +15,9 @@
   <div class="col-md-10">
     <h3>Employee Directory</h3>
     <p>Find out coordinates of your colleagues….all compiled in an online directory.</p>
-    <a id="a-btn" href="my_info.php"><button type="button" class="btn">Personal Details</button></a>
+    <a id="a-btn" href="#"><button type="button" class="btn">Personal Details</button></a>
     <a id="a-btn" href="contact_details.php"><button type="button" class="btn">Contact Details</button></a>
-    <a id="a-btn" href="emergency_contacts.php"><button type="button" class="btn">Emergency Contacts</button></a>
+    <a id="a-btn" href="#"><button type="button" class="btn">Emergency Contacts</button></a>
   </div>
   </div><hr>
 
@@ -83,7 +83,7 @@
   <div class="col-md-10">
     <h3>Pay Slip</h3>
     <p>Generate and download your pay slips</p>
-    <a id="a-btn" href="payslip_generate.php"><button type="button" class="btn">Generate PaySlip</button></a>
+    <a id="a-btn" href="emp_select_payslip.php"><button type="button" class="btn">Generate PaySlip</button></a>
     
   </div>
   </div><hr>
