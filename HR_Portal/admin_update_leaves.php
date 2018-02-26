@@ -7,13 +7,18 @@
 
 <div class="row" id="leave_div">
   <div class="well" id="headingwell">
-  <h3 id="headingdash">Leave Details</h3>
+  <h3 id="headingdash"><div class="row">Leave Details
+  <span style="float:right;"> 
+  <a href="admin_dashboard.php">
+  <img src="images\backarrow.png" style="width:35px;hieght:30px;margin-top:-9px;margin-right:8px;"> </a> </span>
+  
+  </div></h3>
   </div>
 
   <div class="well" id="contentwell">
 <?php
 
-$sql1 = "Select * from tekhub_apply_leave as A join tekhub_employee_personal_details as B on A.emp_id=B.emp_id join tekhub_leaves as C on A.leave_id=C.leave_id where A.leave_status_id=1 ";
+$sql1 = "Select * from tekhub_apply_leave as A join tekhub_employee_personal_details as B on A.emp_id=B.emp_id join tekhub_leaves as C on A.leave_id=C.leave_id where A.leave_status_id=1";
   $retval1=mysqli_query($conn,$sql1);
   if(!$retval1)
   {
@@ -64,14 +69,11 @@ echo"
     
 </table>
 
-
-";  
-$count=mysqli_num_rows( $retval1);
+"; $count=mysqli_num_rows( $retval1);
   if($count==0)
   {
 	  echo "<script> alert('No Record found'); </script> ";
-  }
-  echo " <a href='admin_dashboard.php'><button type='submit' class='btn btn-success' >Back</button></a>";
+  } 
 
   
 

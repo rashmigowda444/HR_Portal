@@ -8,7 +8,7 @@ $(function() {
     });
 });
 </script>
-<script>
+<!--<script>
 function validateForm() {
     var x = document.forms["myForm"]["type_leave"].value;
 	
@@ -17,7 +17,7 @@ function validateForm() {
         return false;
     }
 }
-</script>
+</script>-->
 <script type="text/javascript">
         $(function() {
   var start_year = new Date().getFullYear();
@@ -30,7 +30,13 @@ function validateForm() {
 
 <div class="row" >
   <div class="well" id="headingwell">
-  <h3 id="headingdash"> Leave Entitlements</h3>
+  <h3 id="headingdash"><div class="row"> Leave Entitlements
+  <span style="float:right;"> 
+  <a href="admin_dashboard.php">
+  <img src="images\backarrow.png" style="width:35px;hieght:30px;margin-top:-9px;margin-right:8px;"> </a> </span>
+  
+  </div>
+  </h3>
   </div>
  <div class="well" id="contentwell">
  <form method="post" name="myForm" onsubmit="return validateForm()">
@@ -44,7 +50,7 @@ function validateForm() {
 </thead>
 <tbody>
 <tr>
-<td><input class="form-control" name="name" id="field1" required></td>
+<td><input class="form-control" name="name" id="field1" placeholder="Search name..." required></td>
 <td><?php 
   $sql="select * from tekhub_leaves";
   $retval=mysqli_query($conn,$sql);
@@ -53,7 +59,7 @@ function validateForm() {
   }
   echo"
  <select id='type_leave' class='form-control'  name='leave_type'  required>
-    <option value='select'>-----Select----</option>
+    <option value=''>-----Select----</option>
 <option value='0'>All</option>";
   while($row= mysqli_fetch_array($retval)){
   $leave_id=$row['leave_id'];
@@ -63,14 +69,16 @@ function validateForm() {
     echo" </select>";
   ?></td>
 <td><select name="year" class="form-control year" id="field1" required >
-<option value="">--select--</option></select></td>
+<option value="">----Select----</option>
+
+</select></td>
       </tr>
     
     </tbody>
 </table>
 <hr>
 <input type="submit" name="sub" class="btn" value="Submit" >&emsp;&emsp;
-<a href="admin_dashboard.php"><input type="button"  class="btn" value="Back"></a>
+<a href="admin_dashboard.php"><input type="reset"  class="btn" value="Reset"></a>
 <br><br>
 </form > 
 
@@ -82,10 +90,11 @@ if (isset($_POST['sub'])) {
  $year=$_POST['year'];
 
 $sql = "select emp_id from tekhub_employee_personal_details where emp_name='$name'";
+
 $retval=mysqli_query($conn,$sql);
 $numrow=mysqli_num_rows($retval);
 if($numrow==0)
-{ echo " <script> alert('No Record found'); </script>"; 
+{ echo " <script> alert('No records found'); </script>"; 
 exit;
 	
 }
@@ -95,7 +104,6 @@ die('Could not fetch data: ' . mysqli_error($conn));
   }
 while($row= mysqli_fetch_array($retval,MYSQLI_ASSOC)){
 	 $emp_id=$row['emp_id'];
-	 
 }
 
 if($leave_type=='0')

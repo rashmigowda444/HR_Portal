@@ -50,7 +50,7 @@
         die('could not enter data:'.mysqli_error($conn));
       }
       else{
-        echo "<script>alert('Payslip generated successfully for month')</script>";
+        echo "<script>alert('Payslip generated successfully')</script>";
         echo "<script>window.location.href = 'admin_generate_payslip.php'</script>";
       }
   }

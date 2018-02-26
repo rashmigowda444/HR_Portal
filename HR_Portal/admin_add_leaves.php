@@ -1,7 +1,7 @@
 <?php
   include('header_admin.php');
 ?>
-<script>
+<!--<script>
 function validateForm() {
     var name = document.forms["myForm"]["emp_name"].value;
 	
@@ -24,7 +24,7 @@ function validateForm() {
         return false;
     }
 }
-</script>
+</script>-->
 <script>
 function apply(){
 
@@ -44,7 +44,13 @@ else{
 
 
   <div class="well" id="headingwell">
-  <h3 id="headingdash">Apply Leave</h3>
+  <h3 id="headingdash">
+  <div class="row"> Add Leave
+  <span style="float:right;"> 
+  <a href="admin_dashboard.php">
+  <img src="images\backarrow.png" style="width:35px;hieght:30px;margin-top:-9px;margin-right:8px;"> </a> </span>
+  
+  </div></h3>
   </div>
 
 <div class="well" id="contentwell">
@@ -62,7 +68,7 @@ else{
    echo"<div class='col-md-10'>
  <select  id='field'  name='emp_id_name' class='form-control'  required>
  
-    <option value='select'>-----Select----</option>
+    <option value=''>----Select----</option>
 	<option >All</option>";
   while($row= mysqli_fetch_array($retvalforempname)){
   $emp_name=$row['emp_name']; 
@@ -72,11 +78,12 @@ else{
   }
     echo" </select>
   </div>
+</div>
   <br>";
   
-  ?></br></br>
+  ?>
   
-  
+  <div class="row">
   <div class="col-md-2">
   <label>Leave Type  </label>
   </div>
@@ -87,9 +94,9 @@ else{
   die('could not enter data:'.mysqli_error());
   }
   echo"<div class='col-md-10'>
- <select  id='leave_type'  style='width:350px;height:35px;border-radius:5px;border:none;background-color:white;' name='leave_type'  required>
+ <select  id='leave_type' class='form-control' style='width:350px;height:35px;border-radius:5px;border:none;background-color:white;' name='leave_type'  required>
  
-    <option value='select' >-----Select----</option>";
+    <option value='' >----Select----</option>";
   while($row= mysqli_fetch_array($retval)){
   $leave_id=$row['leave_id'];
   $leave_type=$row['leave_type'];
@@ -97,20 +104,26 @@ else{
   }
     echo" </select>
   </div>
+</div>
   <br>";
   ?>
-</br></br>
 
+
+  <div class="row">
   <div class="col-md-2">
-  <label>Add Leave Days </label>
+  <label>Add Days </label>
   </div>
    <div class="col-md-10">
- <input type="number"  min="1" style="width:350px;height:35px;border-radius:5px;border:none;background-color:white;"  name="norofdays" id="addleaves" ></br>
+ <input type="number"  min="1" style="width:350px;height:35px;border-radius:5px;border:none;background-color:white;"  name="norofdays" id="addleaves" required></br>
   </div>
-  <div><br><br>
-  <input type="submit"  value="Submit" class= "btn btn-success" name="submit" >
+</div><br><br><hr id="hrbef">
+
+
+<input type="submit"  value="Submit" class= "btn btn-default" name="submit" >
   &emsp;&emsp;
-  <a href="admin_dashboard.php"><input type="button" class="btn btn-success" value="Back "></input></a>
+  <input type="reset" class="btn btn-default" value="Reset"></input>
+  <div> 
+  
   
   
   </div>
@@ -120,7 +133,7 @@ else{
   </div>
 <br> </form>
 
-</div></div><br>
+</div></div><br><hr id="hrline">
 
 
 <?php

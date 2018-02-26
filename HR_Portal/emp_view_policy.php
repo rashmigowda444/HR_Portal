@@ -1,6 +1,5 @@
 <?php
   include('emp_header.php');
-  
 ?>
 <script type="text/javascript">
   document.getElementById('jsform').submit();
@@ -66,23 +65,20 @@
   <div class="well" id="headingwell">
   <div class="col-md-10">
   <h3 id="headingdash">Policies and procedures
-  
   </div>
- 
   <div class="col-md-2" style="margin-top: -15px;">
   <form method="post" action="emp_policy_download.php" enctype="multipart/form-data">  
   <button type="submit" name="download" class="btn btn-default btn-sm">
-          <span class="glyphicon glyphicon-download-alt"></span> Download
-        </button></form>
+          <span class="glyphicon glyphicon-download-alt"></span> Download 
+        </button>
+		<a href="emp_dashboard.php">
+  <img src="images\backarrow.png" style="width:30px;hieght:30px;margin-top:-1px;margin-right:-1px;"> </a>
+		</form>
 		</div>
  </div> 
 <div class="well" id="contentwell">
-
     <div class="row">
-	
-		
        <div class="col-md-10"> 
-       
 	 <p>  This employee handbook is a summary of policies, procedures and practices related to
 human resource management at TEKVITY.
 TEKVITY wishes to maintain a work environment that fosters personal and professional
@@ -90,9 +86,6 @@ growth for all employees. Maintaining such an environment is the responsibility 
 staff person. Because of their role, managers and supervisors have the additional
 responsibility to lead in a manner which fosters an environment of respect for each
 person.  
-      
-
-	   
 	   <?php 
 	   $sql="select * from tekhub_upload_files"; // where filename='emp_policy.pdf'";
 
@@ -116,15 +109,7 @@ die('Could not fetch data: ' . mysqli_error($conn));
          }
 		 echo "<form  method='post'  action='view_policy_pdf.php?url=$file_url' enctype='multipart/form-data'> "; ?>
         </form> 
-		
-		
-		<a href="emp_dashboard.php"><button type="submit" class="btn" >Back</button></a>
 		</div>
-		
-		
-    
-   
-
 </div>
 </div>
 <br><br><br><hr id="hrline">   

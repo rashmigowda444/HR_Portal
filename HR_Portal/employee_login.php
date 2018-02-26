@@ -15,21 +15,11 @@
 	</div><br><br>
 
 	<div class="input-group">
-        <input type="email" name="email" class="form-control" placeholder="Email ID" required>
-        <div class="input-group-btn">
-          <button class="btn btn-default" type="submit">
-            <i class="glyphicon glyphicon-user"></i>
-          </button>
-        </div>
+        <input type="email" name="email" class="form-control" placeholder="Email ID" required style="width:320px;"><span style="color:white;height:33px;width:35px;background-color: brown;padding-top: 10px;padding-left: 10px;border-radius:3px;" class="glyphicon glyphicon-user"></span>
       </div><br>
 
       <div class="input-group">
-        <input type="password" name="pass" class="form-control" placeholder="Password" required>
-        <div class="input-group-btn">
-          <button class="btn btn-default" type="submit">
-            <i class="glyphicon glyphicon-lock"></i>
-          </button>
-        </div>
+        <input type="password" name="pass" class="form-control" placeholder="Password" required style="width:320px;"><span style="color:white;height:33px;width:35px;background-color: brown;padding-top: 10px;padding-left: 10px;border-radius:3px;" class="glyphicon glyphicon-user"></span>
       </div><br><br>
 
       <div class="input-group">

@@ -1,35 +1,71 @@
 <?php
-  include('config.php');
-  session_start();
-     if(isset($_SESSION["CurrentUser"]) && $_SESSION["admin"] == "0")
+  include('header.php');
+?>
+<style>
+.field_for{
+  width:350px;height:35px;border-radius:5px;border:none;background-color:white;
+}
+</style>
+<script>
+function myinfoedit()
+ {    
+	   document.getElementById("addresstreat1").disabled=false;
+	   document.getElementById("addresstreat1").style.backgroundColor = "#ffffff";
+	   
+	   document.getElementById("addresstreat2").disabled=false;
+	   document.getElementById("addresstreat2").style.backgroundColor = "#ffffff";
+		  
+	      document.getElementById("city").disabled=false;
+		  document.getElementById("city").style.backgroundColor = "#ffffff";
+		  
+	   document.getElementById("state").disabled=false;
+	     document.getElementById("state").style.backgroundColor = "#ffffff";
+		 
+	   document.getElementById("zipcode").disabled=false;
+	   document.getElementById("zipcode").style.backgroundColor = "#ffffff";
+	   
+	   document.getElementById("country").disabled=false;
+	   document.getElementById("country").style.backgroundColor = "#ffffff";
+	   
+	    document.getElementById("hometel").disabled=false;
+		document.getElementById("hometel").style.backgroundColor = "#ffffff";
+		
+		document.getElementById("mobile_no").disabled=false;
+		 document.getElementById("mobile_no").style.backgroundColor = "#ffffff";
+		 
+	   document.getElementById("worktel").disabled=false;
+	   document.getElementById("worktel").style.backgroundColor = "#ffffff";
+	   
+		document.getElementById("otheremail").disabled=false;
+	   document.getElementById("otheremail").style.backgroundColor = "#ffffff";
+	 
+	 document.getElementById("workemail").disabled=false;workemail
+	 document.getElementById("workemail").style.backgroundColor = "#ffffff";
+		
+}
+</script>
+<?php
+$id = $_SESSION['empid'];
+$sql_select_from_db="select * from tekhub_contact_details where emp_id='$id' ";
+$retval_from_db=mysqli_query($conn,$sql_select_from_db);
+while($row_db=mysqli_fetch_array($retval_from_db))
 {
-
-}else{
-echo '<script>window.location="employee_login.php";</script>';
-
+  $address1=$row_db['address1']; 
+  $address2=$row_db['address2'];
+ $city= $row_db['city'];
+  $state=$row_db['state'];
+  $zip=$row_db['zip'];
+  $country=$row_db['country'];
+  $hometel=$row_db['hometele'];
+  $mobile_nor=$row_db['mobile'];
+  $worktele=$row_db['worktele'];
+   $workmail=$row_db['workemail'];
+   $othermail=$row_db['otheremail'];
+ 
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <title>Tekhub</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-  <link href="https://fonts.googleapis.com/css?family=Jura" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
-  <link href="index.css" rel="stylesheet">
-
-</head>
-
-
 <body class="body">
 <div id="divtop">
 <ul id="ultopnav">
@@ -41,11 +77,6 @@ echo '<script>window.location="employee_login.php";</script>';
        if(isset($_SESSION['CurrentUser'])){
         echo 'Welcome '.'&nbsp;'.$_SESSION['CurrentUser'];
        }
-
-       else{
-
-       }
-      
   ?><span class="caret"></span></button></a>
 
     <ul class="dropdown-menu">
@@ -55,11 +86,11 @@ echo '<script>window.location="employee_login.php";</script>';
      </li>
 </ul>
 </div><hr id="hrline"><br>
-
-
-
+<?php      $_SESSION['CurrentUser'];  
+   $var1=$_SESSION['CurrentUser']; 
+   $id=$_SESSION['empid'];
+	?>
 <div class="row" style="height:100%;">
-
 <div class="col-md-3">
 <div class="well" id="leftwell" >
 <h3 class="headinginfo">
@@ -67,40 +98,71 @@ echo '<script>window.location="employee_login.php";</script>';
         echo $_SESSION['CurrentUser'];      
 	?>
 </h3>
-
 <div class="well" id="imgwell">
+<form action="#" method="post" enctype="multipart/form-data">
+<input type="file" name="img[]" style="position:absolute;" multiple="multiple"/></br>
+<input type="submit" name="upload" value="upload" style="position:absolute;">
+</form>
+<?php
+if(isset($_POST['upload']))
+{   echo    $_POST['upload'];
+ 
+ $filename=$_FILES['img']['name'];
+ 
+	 $tmpname=$_FILES['img']['tmp_name'];
+	 //$size = getimagesize($tmpname);
+	 $filetype=$_FILES['img']['type'];
+	for($i=0;$i<=count($tmpname)-1;$i++)
+	{	$name=addslashes($filename[$i]);
+		$tmp=addslashes(file_get_contents($tmpname[$i]));
+		$sql_select="select * from tekhub_employee_personal_details where emp_id='$id'";
+		$returns=mysqli_query($conn,$sql_select);
+	while($row=mysqli_fetch_array($returns))
+{  $emp_id_db=$row['emp_id'];
+} 
+		if($emp_id_db!="")
+		{
+			$sql_update=" update tekhub_employee_personal_details set img='$tmp' where emp_id='$id' ";
+		mysqli_query($conn,$sql_update);
+		}
+		 		
+	}
+}
+$res="select * from tekhub_employee_personal_details where emp_id='$id'";
+$result1=mysqli_query($conn,$res);
+while($row=mysqli_fetch_array($result1))
+{	echo '<img src="data:image/jpeg;base64,'.base64_encode($row['img']).'" width="260" height="250" style="margin-top:-38px;margin-left:-16px;">';
+}
+?>
 </div>
   <ul id="ulinfo">
    <li  id="liinfo"> <a href="my_info.php" class="list-group-item"  >Personal Details</a> </li>
-   <li class="active"  id="liinfo"> <a href="contact_details.php" class="list-group-item" style="background-color:#1B1E24;">Contact Details</a> </li>
-   <li id="liinfo"> <a href="emergency_contact.php" class="list-group-item" >Emergency Contacts</a> </li>
-   <li  id="liinfo"> <a href="dependents.php" class="list-group-item" >Dependents</a> </li>
-   <li  id="liinfo"> <a href="immigration.php" class="list-group-item" >Immigration</a> </li>
-   <li  id="liinfo"> <a href="job.php" class="list-group-item" >Job</a> </li>
-   <li  id="liinfo"> <a href="salary.php" class="list-group-item" >Salary</a> </li>
-   <li  id="liinfo"> <a href="report_to.php" class="list-group-item" >Report-to</a> </li>
-   <li  id="liinfo"> <a href="" class="list-group-item" >Qualifications</a> </li>
-   <li  id="liinfo"> <a href="" class="list-group-item" >Memberships</a> </li>
-    
+   <li class="active"  id="liinfo"> <a href="contact_details.php" class="list-group-item">Contact Details</a> </li>
+   <li id="liinfo"> <a href="emergency_contacts.php" class="list-group-item" >Emergency Contacts</a> </li>
+   <li  id="liinfo"> <a href="dependent.php" class="list-group-item" >Dependents</a> </li>
+  
+   <li  id="liinfo"> <a href="report_to.php" class="list-group-item" >Report-to</a> </li>  
   </ul>
-
 </div>
 </div>
-
-
-
 <div class="col-md-9">
 <div class="well" id="rightwell">
-<h3 class="headinginfo">Contact Details</h3>
+<h3 class="headinginfo">
+<div class="row">Contact Details
+  <span style="float:right;"> 
+  <a href="emp_dashboard.php">
+  <img src="images\backarrow.png" style="width:35px;hieght:30px;margin-top:-9px;margin-right:8px;"> </a> </span>
+  </div>
+</h3>
 </div>
 <div class="well" id="rightinnerwell">
-
+<form method="post">
 <div class="row">
 <div class="col-md-3">
 <label>Address Street 1</label>
 </div>
 <div class="col-md-9">
-<input type="text" id="field" value="" name="address1">
+<input disabled="disabled" style="background-color:#e3e3e3;" type="text" id="addresstreat1" class="field_for" value="<?php if(isset( $address1)){ echo  $address1;  }  ?>" name="address1">
 </div>
 </div><br>
 
@@ -109,47 +171,39 @@ echo '<script>window.location="employee_login.php";</script>';
 <label>Address street 2</label>
 </div>
 <div class="col-md-9">
-<input type="text" id="field" value="" name="address2">
+<input   disabled="disabled"  style="background-color:#e3e3e3;"  type="text" class="field_for" id="addresstreat2" value="<?php if(isset( $address2)){ echo  $address2;  } ?>" name="address2">
 </div>
 </div><br>
-
-
 <div class="row">
 <div class="col-md-3">
 <label>City </label>
 </div>
 <div class="col-md-9">
-<input type="text" id="field" value="" name="city">
+<input disabled="disabled"  style="background-color:#e3e3e3;" type="text" class="field_for" id="city" value="<?php if(isset($city)){ echo   $city;  }  ?>" name="city">
 </div>
 </div><br>
-
 <div class="row">
 <div class="col-md-3">
 <label>State/Province </label>
 </div>
 <div class="col-md-9">
-<input type="text" id="field" value="" name="state">
+<input disabled="disabled" style="background-color:#e3e3e3;" type="text" id="state" class="field_for" value="<?php if(isset($state)){ echo   $state;  } ?>" name="state">
 </div>
 </div><br>
-
-
 <div class="row">
 <div class="col-md-3">
 <label>Zip Code </label>
 </div>
 <div class="col-md-9">
-<input type="text" id="field" value="" name="zip">
+<input disabled="disabled" pattern="[1-9]{1}[0-9]{6}"  style="background-color:#e3e3e3;" id="zipcode" name="zip" class="field_for" value="<?php if(isset($zip)){ echo   $zip;  } ?>" type="text" required >
 </div>
 </div><br>
-
-
-
 <div class="row">
 <div class="col-md-3">
 <label>Country</label>
 </div>
 <div class="col-md-9">
-<select name="country" id="field">
+<select disabled="disabled" style="background-color:#e3e3e3;" name="country" id="country" class="field_for" value="<?php if(isset($country)){ echo   $country;  } ?>">
   <option>--Select--</option>
     <option value="Afghanistan">Afghanistan</option>
     <option value="Albania">Albania</option>
@@ -393,70 +447,133 @@ echo '<script>window.location="employee_login.php";</script>';
 </select>
 </div>
 </div><hr>
-
 <div class="row">
 <div class="col-md-3">
 <label>Home Telephone </label>
 </div>
 <div class="col-md-9">
-<input type="text" name="hometele" id="field">
+<input disabled="disabled" style="background-color:#e3e3e3;" class="field_for" type="text" name="hometele" id="hometel" value="<?php if(isset($hometel)){ echo   $hometel;  } ?>">
 </div>
 </div><br>
-
 <div class="row">
 <div class="col-md-3">
 <label>Mobile </label>
 </div>
 <div class="col-md-9">
-<input type="text" name="mobile" id="field">
+<input  disabled="disabled" style="background-color:#e3e3e3;" type="text"   name="mobile" class="field_for" id="mobile_no" value="<?php if(isset($mobile_nor)){ echo   $mobile_nor;  }  ?>" pattern="[1-9]{1}[0-9]{9}">
 </div>
 </div><br>
-
-
 <div class="row">
 <div class="col-md-3">
 <label>Work Telephone </label>
 </div>
 <div class="col-md-9">
-<input type="text" name="worktele" id="field">
+<input disabled="disabled" style="background-color:#e3e3e3;" type="int" name="worktele" class="field_for" id="worktel" value="<?php if(isset($worktele)){ echo   $worktele;  } ?>">
 </div>
 </div><hr>
-
 <div class="row">
 <div class="col-md-3">
 <label>Work Email </label>
 </div>
 <div class="col-md-9">
-<input type="text" name="workemail" id="field">
+<input disabled="disabled" type="mail" name="workemail" id="workemail" style="background-color:#e3e3e3;" class="field_for" value="<?php if(isset($workmail)){ echo   $workmail;  } ?>">
 </div>
 </div><br>
-
 <div class="row">
 <div class="col-md-3">
 <label>Other Email</label>
 </div>
 <div class="col-md-9">
-<input type="text" name="otheremail" id="field">
+<input disabled="disabled" type="mail" style="background-color:#e3e3e3;" name="otheremail" class="field_for" id="otheremail" value="<?php if(isset($othermail)){ echo   $othermail;  } ?>"  pattern="[^ @]*@[^ @]*">
 </div>
 </div><br><hr>
-
-
-
-
-<button type="submit" class="btn btn-success">Save</button>
-
+<button type="submit" class="btn btn-success" name="submit">Save</button>
+<button type="button" class="btn btn-default" onclick="myinfoedit()" name="edit">Edit</button>
 </div>
 </div>
-
+</form>
 </div><br><br><br><br><br><br><br><hr id="hrline">
+<?php
+if(isset($_POST['submit'])){
+ $address1=$_POST['address1'];
+ $address2=$_POST['address2'];
+ $city=$_POST['city'];
+ $state=$_POST['state'];
+ $zip=$_POST['zip'];
+ $country=$_POST['country'];
+ $hometele=$_POST['hometele'];
+ $mobile=$_POST['mobile'];
+ $worktele=$_POST['worktele'];
+ $workemail=$_POST['workemail'];
+ $otheremail	=$_POST['otheremail'];
+$sql_for_select="select * from tekhub_contact_details where emp_id='$id' ";
+$retval_for_select=mysqli_query($conn,$sql_for_select);
+$count_id=mysqli_num_rows($retval_for_select);
+if($count_id>0)
+{
+	//update
+	$sql_update="update tekhub_contact_details set address1='$address1',address2='$address2',city='$city',
+	state='$state',zip='$zip',country='$country',hometele='$hometele',mobile='$mobile',worktele='$worktele',workemail='$workemail',otheremail='$otheremail' where emp_id='$id'";
+	$result_update=mysqli_query($conn,$sql_update);
 
+	if(mysqli_affected_rows($conn)>0)
+	{ 
+echo "
+<script> alert('values are updated successfully'); </script> ";
 
+	}
+	if(!$result_update){
+die('could not enter data:'.mysqli_error());
+}
+	//echo $count2;
+}
+else
+{	
+$sql1="INSERT INTO tekhub_contact_details (`emp_id`,`address1`, `address2`, `city`, `state`, `zip`, `country`, `hometele`, `mobile`, `worktele`, `workemail`, `otheremail`)
+ VALUES ('$id','$address1', '$address2', '$city', '$state', '$zip', '$country', '$hometele', '$mobile', '$worktele', '$workemail', '$otheremail')";
 
+$retval=mysqli_query($conn,$sql1);
+if($retval)
+{echo '<script language="javascript"> alert("Added successfully")
+</script>';
+}else{echo '<script language="javascript"> alert("not added successfully")
+</script>'; }
+if(!$retval){
+die('could not enter data:'.mysqli_error());
+}
+}
+}
+?>
 
+<?php /*
+       mysqli_select_db($conn,'tekvity');
+	   
+	   if(isset($_POST['edit']))
+{
+ $name=$_POST['name'];
+ 
+        $sql = "SELECT * FROM tekhub_personal_details WHERE name='$name'";
+		$result = mysqli_query($conn,$sql);
+}
+if(!$sql)
+{
+	echo "no records";
+}
+         while($row= mysqli_fetch_array($result,MYSQLI_ASSOC)){
+ $name=$row['name'];
+		 $gender=$row['gender'];
+		 $marital=$row['marital'];
+		 $national=$row['national'];
+		  $dob=$row['dob'];
+		 $email_id = $row['email_id'];
+       $qualification=$_POST['qualification'];
+	   $date_of_joining=$_POST['date_of_joining']; 
+             }  */
+     ?>    
+<?php
+include('footer.php');
+?> 
 
-<div id="divfoot">
-<h5><a href="http://tekvity.com/">Tekvity Pvt Ltd</a> © All Rights Reserved. 2017</h5>
-</div>
 
 </body>
 </html>

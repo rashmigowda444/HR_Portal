@@ -434,6 +434,7 @@ function myFunction() {
 else{
 
 echo'<script>alert("No payslip found for selected month and year")</script>';
+
 echo'<script>window.location.href="admin_view_payslip.php"</script>';
 }
 }

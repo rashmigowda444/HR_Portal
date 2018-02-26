@@ -2,6 +2,12 @@
   include('header_admin.php');
 ?>
 <script>
+function refreshPage(){
+    window.location.reload();
+} 
+</script>
+<script>
+
 var xport = {
   _fallbacktoCSV: true,  
   toXLS: function(tableId, filename) {   
@@ -100,38 +106,6 @@ var xport = {
 };
 </script>
 <script>
-function validateForm() {
-    
-	var leave_type=document.forms["myForm"]["fieldleavetype"].value;
-	
-	
-    if (leave_type =="select") { 
-	
-        alert("please select leave type");
-        return false;
-    }
-	
-}
-</script>
-<script>
-function validateFormsec() {
-    
-	var leave_typesec=document.forms["myFormsec"]["fieldleavetypesec"].value;
-	
-	
-    if (leave_typesec =="select") { 
-        alert("please select leave type");
-        return false;
-    }fieldleavetypedate
-	var fieldleavetypedate=document.forms["myFormsec"]["fieldleavetypedate"].value;
-    if (fieldleavetypedate =="select") { 
-        alert("please select year");
-        return false;
-    }
-	
-}
-</script>
-<script>
 $(document).ready(function() {
   $('#field').on('change.div1', function() {
     $("#emp").toggle($(this).val() == 'div1');
@@ -157,22 +131,29 @@ $(function() {
     </script>
 <div class="row" >
   <div class="well" id="headingwell">
-  <h3 id="headingdash">Generate Leave Report</h3>
+  <h3 id="headingdash">
+   <div class="row"> Generate Leave Report
+  <span style="float:right;"> 
+  <a href="admin_dashboard.php">
+  <img src="images\backarrow.png" style="width:35px;hieght:30px;margin-top:-9px;margin-right:8px;"> </a> </span>
+  
+  </div></h3>
+  
   </div>
   <div class="well" id="contentwell">
   <div class="row">
   <div class="col-md-3">
   <label >
- <font style="font-size:20px;"> Generate For :</font></label>
+ Generate For :</label>
   </div>
   <div class="col-md-9">
   <select class="form-control" id="field" name="sel">
-    <option disabled="disabled" selected="selected">-----Select-----</option>
+    <option disabled="disabled" selected="selected">----Select----</option>
     <option value="div1">Employee</option>
     <option value="div2">Leave Type</option>
   </select></br>
   </div> <div >&emsp;
-  <a href="admin_dashboard.php"><input type="button"  class="btn btn-default" value="Back"></input></a> </div>
+  <input type="button"  class="btn btn-default" onClick="refreshPage()" value="Reset"></input> </div>
   </div>
 </div>
 </div><br>
@@ -184,7 +165,7 @@ $(function() {
   <form method="post" name="myForm" onsubmit="return validateForm()">
   <table class="table table-striped">
     <thead>
-      <tr style="font-size:20px;">
+      <tr>
 <th>Employee Name:</th>
 <th>Leave Type:</th>
 <th>Year:</th>
@@ -192,7 +173,7 @@ $(function() {
 </thead>
 <tbody>
 <tr>
-<td><input class="form-control" id="field1" name="emp_name" required></td>
+<td><input class="form-control" id="field1" name="emp_name" placeholder="Search name..." required></td>
 <td><?php 
   $sql="select * from tekhub_leaves";
   $retval=mysqli_query($conn,$sql);
@@ -201,7 +182,7 @@ $(function() {
   }
   echo"
  <select id='fieldleavetype' class='form-control'  name='leave_type'  required>
-    <option value='select'>-----Select----</option>
+    <option value=''>----Select----</option>
   <option value='0'>All</option>";
   while($row= mysqli_fetch_array($retval)){
   $leave_id=$row['leave_id'];
@@ -210,14 +191,16 @@ $(function() {
   }
     echo" </select>";
   ?></td>
-<td><select name="year" class="form-control year" id="yearid"  ></select></td>
+<td><select name="year" class="form-control year" id="yearid" required >
+<option value="">----Select----</option>
+</select></td>
       </tr>
     
     </tbody>
 </table>
 <hr>
 <input type="submit" name="sub1" class="btn btn-default" value="Submit" >&emsp;&emsp;
-<a href="admin_dashboard.php"><input type="reset"  class="btn btn-success" value="Back"></input></a>
+<input type="reset"  class="btn btn-default" value="Reset"></input>
 </form>
 </div>
 </div>
@@ -228,7 +211,7 @@ $(function() {
 <div class="well" id="contentwell">
   <form method="post" name="myFormsec" onsubmit="return validateFormsec()">
   
-    <table><tr><th><label> <font style="font-size:20px;"> Leave Type:&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</font></label></th>
+    <table><tr><th><label>  Leave Type:&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</label></th>
    <td>
   <?php 
   $sql="select * from tekhub_leaves";
@@ -238,7 +221,7 @@ $(function() {
   }
   echo"
   <select id='fieldleavetypesec' style='width:350px;height:35px;border-radius:5px;border:none;background-color:white;' class='form-control'  name='leave_type'  required>
-    <option value='select'>-----Select----</option>
+        <option value=''>----Select----</option>
 	<option value='0'>All</option>";
   while($row= mysqli_fetch_array($retval)){
  $leave_id=$row['leave_id'];
@@ -247,13 +230,13 @@ $(function() {
   }
     echo" </select>
   
-  "; 	echo"</td><th><label><font style='font-size:20px;'> &emsp;Year:&emsp;</label></th><td>";
+  "; 	echo"</td><th><label> &emsp;Year:&emsp;</label></th><td>";
 		$sqlforyear="SELECT DISTINCT year(year) as olydate FROM  tekhub_user_leave";
 		$retvalforyear=mysqli_query($conn,$sqlforyear);
 		if(!$retvalforyear){
       die('could not enter data:'.mysqli_error());
                 }
-		echo "<select class='form-control' id='fieldleavetypedate' name='year1' style='width:350px;height:35px;border-radius:5px;border:none;background-color:white;'  required> <option value='select'>select </option>";		
+		echo "<select class='form-control' id='fieldleavetypedate' name='year1' style='width:350px;height:35px;border-radius:5px;border:none;background-color:white;'  required> <option value=''>----Select---- </option>";		
 		while($row1= mysqli_fetch_array($retvalforyear))
 		{  $year=$row1['olydate'];
 		echo"
@@ -262,12 +245,12 @@ $(function() {
          echo"
       </select></td></tr></table>";  
   ?> </br>
-<input type="submit" name="sub2" class="btn btn-success" value="Submit"> &emsp;&emsp;
-<a href="admin_dashboard.php"><input type="button"  class="btn btn-success" value="Back"></input></a>
+<input type="submit" name="sub2" class="btn btn-default" value="Submit"> &emsp;&emsp;
+<input type="reset"  class="btn btn-default" value="Reset"></input></a>
 </form>
 </div>
 </div><br>
-<!--<br><hr id="hrline">-->
+<br>
 <?php
 if (isset($_POST['sub1'])) 
 {   
@@ -275,8 +258,6 @@ echo "<div class='row' id='leave_div'>
   <div class='well' id='headingwell'>
   <h3 id='headingdash'>Leave Details</h3>
   </div>
-
-  
   <div class='well' id='contentwell'> ";
 	 $emp_name1=$_POST['emp_name'];	
  $year1=$_POST['year'];
@@ -294,32 +275,31 @@ while($row= mysqli_fetch_array($retval1,MYSQLI_ASSOC))
      $emp_namee=$row['emp_name'];
 }    
      if($leave_type==0)
-{   
-
+	 {
 echo "<table class='table table-bordered view' id='leave_report'>
     <thead>
       <tr bgcolor='	#A52A2A'> 
-	  <th><font color='#ffffff'>Employee Name
-	  </font></th> 
-	  <th><font color='#ffffff'>Employee id</font></th>
-		<th><font color='#ffffff'>Leave Type</font></th><th><font color='#ffffff'>Leave Entitlements</font></th>
-        <th><font color='#ffffff'>Leave Balance</font></th>
+	   <th><font color='#ffffff'>Employee Name</font></th>
+    <th><font color='#ffffff'>Leave Type</font></th>
+    <th><font color='#ffffff'>From Date</font></th>
+    <th><font color='#ffffff'>To Date</font></th>
+    <th><font color='#ffffff'>No of Days</font></th>
+    <th><font color='#ffffff'>Reason</font></th>
+    <th><font color='#ffffff'>Status</font></th>
+    <th><font color='#ffffff'>Cancel Reason</font></th>
       </tr>
     </thead>
     <tbody>";
-	$sql1="SELECT * FROM `tekhub_leaves` as a
-	INNER join tekhub_user_leave as b on a.leave_id=b.leave_id 
-	INNER JOIN tekhub_add_employee as d on d.emp_id=b.emp_id
-	WHERE d.emp_id='$emp_id'  and year(b.year)='$year1' GROUP BY b.leave_id";
-	
+	$sql1="Select * from tekhub_apply_leave as B join tekhub_leaves as C on B.leave_id=C.leave_id  join tekhub_leave_status as D on D.leave_status_id = B.leave_status_id where B.emp_id='$emp_id' and year(B.date_created)='$year1'";
 	$retval1=mysqli_query($conn,$sql1);
 	$count=mysqli_num_rows($retval1);
 	if($count>=1)
 	{}
 
-else {echo '<script language="javascript"> alert("NO Data found1")</script>';
-
-}
+else {echo '<script language="javascript"> alert("No records found")
+document.getElementById("btnExport").style.visibility = "hidden"
+</script>'
+;}
 
 	if(!$retval1) 
 		{  
@@ -329,7 +309,7 @@ die('Could not fetch data: ' . mysqli_error($conn));
      {  
     	  echo"
 	 <tr>
-<td>{$row['emp_name']}</td> <td>{$row['emp_id']}</td> <td>{$row['leave_type']}</td><td>{$row['leave_entitlements']}</td><td>{$row['leave_balance']}</td>      </tr>";
+<td>$emp_namee</td>  <td>{$row['leave_type']}</td><td>{$row['from_date']}</td><td>{$row['to_date']}</td> <td>{$row['no_of_days']}</td><td>{$row['comment']}</td><td>{$row['leave_status_name']}</td> <td>{$row['reason_cancel']}</td></tr>";
 
 	 }//while end
 	 echo "</tbody></table>";
@@ -339,25 +319,28 @@ die('Could not fetch data: ' . mysqli_error($conn));
 	 else
 	 {  echo "<table class='table table-bordered view' id='leave_report'>
     <thead>
-      <tr bgcolor='	#A52A2A'>
-	  <th><font color='#ffffff'>Employee Name:</font></th>
-        <th><font color='#ffffff'>Emplyee Id:</font></th>
-		<th><font color='#ffffff'>Leave Type:</font></th><th><font color='#ffffff'>Leave Entitile</font></th>
-        <th><font color='#ffffff'>Leave Balance</font></th>
+      <tr bgcolor='#A52A2A'>
+	  <th><font color='#ffffff'>Employee Name</font></th>
+    <th><font color='#ffffff'>Leave Type</font></th>
+    <th><font color='#ffffff'>From Date</font></th>
+    <th><font color='#ffffff'>To Date</font></th>
+    <th><font color='#ffffff'>No of Days</font></th>
+    <th><font color='#ffffff'>Reason</font></th>
+    <th><font color='#ffffff'>Status</font></th>
+    <th><font color='#ffffff'>Cancel Reason</font></th>
       </tr>
     </thead>
     <tbody>";
-	      $sql1="SELECT * FROM `tekhub_leaves` as a 
-		 INNER join tekhub_user_leave as b on a.leave_id=b.leave_id 
-		 INNER JOIN tekhub_employee_personal_details as d on d.emp_id=b.emp_id 
-		 WHERE b.emp_id='$emp_id' and year(b.year)=$year1 and b.leave_id='$leave_type'";
+	      $sql1="Select * from tekhub_apply_leave as B join tekhub_leaves as C on B.leave_id=C.leave_id  join tekhub_leave_status as D on D.leave_status_id = B.leave_status_id where B.emp_id='$emp_id' and B.leave_id='$leave_type' and year(B.date_created)=$year1";
 	
 	$retval1=mysqli_query($conn,$sql1);
 	$count=mysqli_num_rows($retval1);
 	if($count>=1)
 	{}
 
-else {echo '<script language="javascript"> alert("NO Data found")</script>';}
+else {echo '<script language="javascript"> alert("No records found")
+document.getElementById("btnExport").style.visibility = "hidden"
+</script>';}
 
 	if(!$retval1) 
 		{  
@@ -366,10 +349,7 @@ die('Could not fetch data: ' . mysqli_error($conn));
   while($row= mysqli_fetch_array($retval1,MYSQLI_ASSOC))
      {  
       	  echo " 
-	 <tr><td>{$row['emp_name']}</td>
-<td>{$row['emp_id']} </td>                                
-<td>{$row['leave_entitlements']}</td>
-<td>{$row['leave_type']}</td><td>{$row['leave_balance']}</td>      </tr>";
+	 <tr><td>$emp_namee</td>  <td>{$row['leave_type']}</td><td>{$row['from_date']}</td><td>{$row['to_date']}</td> <td>{$row['no_of_days']}</td><td>{$row['comment']}</td><td>{$row['leave_status_name']}</td> <td>{$row['reason_cancel']}</td></tr>";
 
 	 }//while end
 	 echo "</tbody></table>";
@@ -408,7 +388,7 @@ die('Could not fetch data: ' . mysqli_error($conn));
 	  <th><font color='#ffffff'>Employee Name<font></th>
         <th><font color='#ffffff'>Employee Id<font></th>
         
-		<th><font color='#ffffff'>Leave Type</font></th><th><font color='#ffffff'>Leave Entitile</font></th>
+		<th><font color='#ffffff'>Leave Type</font></th><th><font color='#ffffff'>Leave Entitlements</font></th>
         <th><font color='#ffffff'>Leave Balance</font></th>
       </tr>
     </thead>
@@ -450,7 +430,7 @@ die('Could not fetch data: ' . mysqli_error($conn));
 	  <th><font color='#ffffff'>Employee Name<font></th>
         <th><font color='#ffffff'>Employee Id<font></th>
         
-		<th><font color='#ffffff'>Leave Type</font></th><th><font color='#ffffff'>Leave Entitile</font></th>
+		<th><font color='#ffffff'>Leave Type</font></th><th><font color='#ffffff'>Leave Entittlements</font></th>
         <th><font color='#ffffff'>Leave Balance</font></th>
       </tr>
     </thead>
@@ -467,14 +447,11 @@ echo "<tr>
 	}
 	else
 	{
-  echo '<script language="javascript"> alert("Result Not found")</script>';
+  echo '<script language="javascript"> alert("Results Not found")</script>';
 	}
 
     echo "</tbody>
-  </table>";
-  
-	 
-	 
+  </table>"; 
  }
   ?>
   <form method="post">
@@ -484,7 +461,7 @@ echo "<tr>
   ?>
   </div>
 </div>
-<br><hr id="hrline">
+<hr id="hrline">
 <?php
 
   include('footer.php');

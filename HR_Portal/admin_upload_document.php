@@ -20,15 +20,21 @@ include('config.php');
 <body>
 <div class="row" >
   <div class="well" id="headingwell">
-  <h3 id="headingdash">Policies and procedures
+  <h3 id="headingdash">
+   <div class="row"> Policies and procedures
+  <span style="float:right;"> 
+  <a href="admin_dashboard.php">
+  <img src="images\backarrow.png" style="width:35px;hieght:30px;margin-top:-9px;margin-right:8px;"> </a> </span>
+  
+  </div>
   </div>
 <div class="well" id="contentwell" >
  <div class="row" >
   <form  method="post" enctype="multipart/form-data">
  <div class="col-md-2">
  <label>  Select File to Upload:</label><br><br><br>
- <input type="submit" name="submit" value="Upload" class="btn btn-deafalt"/>&emsp;
-				<a href="admin_dashboard.php"><input type="button"  class="btn btn-deafalt" value="Back"></input></a>
+ <input type="submit" name="submit" value="Upload" class="btn btn-deafalt"/>&nbsp;
+				<input type="reset"  class="btn btn-deafalt" value="Reset"></input>
  </div> 
  <div class="col-md-8"> 
  <input type="file" name="file1" />

@@ -104,7 +104,7 @@ function myFunction() {
   ?>
   
   <button onclick="myFunction()" id="but">Download PDF</button>
-  <button id="back"><a href="payslip_generate.php">Back</a></button>
+  <button id="back"><a href="emp_select_payslip.php">Back</a></button>
   <br><br>
  
   <div class="container" id="html-content-holder" style="height:90%;width:90%;border:2px solid;background-color:#ffffff;margin-top:30px">
@@ -118,32 +118,32 @@ function myFunction() {
 
 // function calculateWorkingDaysInMonth($year = '$year', $month = '$month')
 // {
-// 	//in case no values are passed to the function, use the current month and year
-// 	if ($year == '')
-// 	{
-// 		$year = date('Y');
-// 	}
-// 	if ($month == '')
-// 	{
-// 		$month = date('m');
-// 	}	
-// 	//create a start and an end datetime value based on the input year 
-// 	$startdate = strtotime($year . '-' . $month . '-01');
-// 	$enddate = strtotime('+' . (date('t',$startdate) - 1). ' days',$startdate);
-// 	$currentdate = $startdate;
-// 	//get the total number of days in the month	
-// 	$return = intval((date('t',$startdate)),10);
-// 	//loop through the dates, from the start date to the end date
-// 	while ($currentdate <= $enddate)
-// 	{
-// 		//if you encounter a Saturday or Sunday, remove from the total days count
-// 		if ((date('D',$currentdate) == 'Sat') || (date('D',$currentdate) == 'Sun'))
-// 		{
-// 			$return = $return - 1;
-// 		}
-// 		$currentdate = strtotime('+1 day', $currentdate);
-// 	} //end date walk loop
-// 	//return the number of working days
+//  //in case no values are passed to the function, use the current month and year
+//  if ($year == '')
+//  {
+//    $year = date('Y');
+//  }
+//  if ($month == '')
+//  {
+//    $month = date('m');
+//  } 
+//  //create a start and an end datetime value based on the input year 
+//  $startdate = strtotime($year . '-' . $month . '-01');
+//  $enddate = strtotime('+' . (date('t',$startdate) - 1). ' days',$startdate);
+//  $currentdate = $startdate;
+//  //get the total number of days in the month 
+//  $return = intval((date('t',$startdate)),10);
+//  //loop through the dates, from the start date to the end date
+//  while ($currentdate <= $enddate)
+//  {
+//    //if you encounter a Saturday or Sunday, remove from the total days count
+//    if ((date('D',$currentdate) == 'Sat') || (date('D',$currentdate) == 'Sun'))
+//    {
+//      $return = $return - 1;
+//    }
+//    $currentdate = strtotime('+1 day', $currentdate);
+//  } //end date walk loop
+//  //return the number of working days
 //   return $return;
 //   echo $return;
 // }
@@ -486,7 +486,7 @@ echo"
 else{
 
 echo'<script>alert("No payslip found for selected month and year")</script>';
-echo'<script>window.location.href="payslip_generate.php"</script>';
+echo'<script>window.location.href="emp_select_payslip.php"</script>';
 }
 }
 mysqli_close($conn);

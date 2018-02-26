@@ -9,11 +9,11 @@
       <?php
         $sql2="SELECT * from tekhub_apply_leave as a inner JOIN tekhub_employee_personal_details as b on a.emp_id=b.emp_id INNER JOIN tekhub_leaves as c on a.leave_id=c.leave_id WHERE a.leave_status_id=1";
         $result=mysqli_query($conn, $sql2);
-        $count=mysqli_num_rows($result);
+        $count1=mysqli_num_rows($result);
       ?>
       <div class="notification" style="position:absolute;background-color:white;right:140px; margin-top:-115px;">
-          <span id="notification-count"><?php  if($count>0) { echo $count; } ?></span><img src="images/notification.png" data-toggle="modal" data-target="#myModal" width="50px" />
-      </div>		
+          <span id="notification-count"><?php  if($count1>0) { echo $count1; } ?></span><img src="images/notification.png" data-toggle="modal" data-target="#myModal" width="50px" />
+      </div>    
     </h4><br><br>
   
   <div class="modal fade" id="myModal" role="dialog">
@@ -26,11 +26,21 @@
             $result=mysqli_query($conn, $sql);
             $response='';
             $count=0;
+			if($count1==0)
+			{
+				echo "No Notification...";
+			}
+			else
+			{
             while($row=mysqli_fetch_array($result)) {
               $count=$count+1;
-            echo "<a href='admin_update_leaves.php' style='text-decoration:none;'>".$count.".&nbsp;&nbsp;".$row['emp_name']."<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Applied for the ".$row['leave_type']."<hr id='hrline'>  </a>"; 
+			   $emp_id_forleave=$row['emp_id'];
+			    $emp_leave_id=$row['apply_leave_id']; 
+			   
+            echo "<a href='admin_update_leaves_notification.php?eid=$emp_id_forleave&leave_id=$emp_leave_id' style='text-decoration:none;'>".$count.".&nbsp;&nbsp;".$row['emp_name']."<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Applied for the ".$row['leave_type']."<hr id='hrline'>  </a>"; 
             }
-          ?>	 
+			}
+          ?>   
         </div>
         <div class="modal-footer" style="background-color:beige;">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

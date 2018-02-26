@@ -10,7 +10,7 @@
         divreason.style.display = field1.value == "3" ? "block" : "none";
     }
 </script>
-<script>
+<!--<script>
 function update()
 {
 	
@@ -24,7 +24,7 @@ function update()
 		
 }
 
-</script>
+</script>-->
 
 <div class="row" id="leave_div">
   <div class="well" id="headingwell">
@@ -88,8 +88,8 @@ $sql='select * from tekhub_leave_status';
   }
   echo"
 
- <select  class='form-control' id='field1' name='leave_status' onchange = 'ShowHideDiv()'>
-    <option value='0'>-----Select----</option>";
+ <select  class='form-control' id='field1' name='leave_status' onchange = 'ShowHideDiv()' required>
+    <option value=''>-----Select----</option>";
   while($row= mysqli_fetch_array($retval)){
   $leave_status_id=$row['leave_status_id'];
   $leave_status_name=$row['leave_status_name'];

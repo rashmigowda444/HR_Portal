@@ -185,7 +185,12 @@ else{
 </script>
 <div class="row" >
   <div class="well" id="headingwell">
-  <h3 id="headingdash">Apply Leave</h3>
+  <h3 id="headingdash"><div class="row"> Apply Leave
+  <span style="float:right;"> 
+  <a href="admin_dashboard.php">
+  <img src="images\backarrow.png" style="width:35px;hieght:30px;margin-top:-9px;margin-right:8px;"> </a> </span>
+  
+  </div></h3>
   </div>
 
 <div class="well" id="contentwell">
@@ -193,11 +198,11 @@ else{
 
 <div class="row">
 <div class="col-md-2">
-  <label>Employee name  </label>
+  <label>Employee Name  </label>
   </div>
- <div class='col-md-10'>
- <div class='search-box'>
-        <input type='text' autocomplete='off' placeholder='Search Name...' name='emp_name'  onchange="getname(this)" id="field1" 
+ <div class="col-md-10">
+ <div class="search-box">
+        <input type="text" class="form-control" placeholder="Search name" name="emp_name"  onchange="getname(this)" id="field1" 
 		
 		style="width:350px;height:35px;border-radius:5px;border:none;background-color:white;"
 		required> </td>
@@ -206,7 +211,7 @@ else{
        <div class='result'></div>
     </div>
 	</div>
-	</div></br></br>	
+	</div></br>	
 
   <div class="row">
   <div class="col-md-2">
@@ -219,7 +224,7 @@ else{
   die('could not enter data:'.mysqli_error());
   }
   echo"<div class='col-md-10'>
- <select required id='field' onchange='searchone(this.value)' class='leaveid' name='leave_type' required>
+ <select id='field' class='form-control leaveid' onchange='searchone(this.value)' name='leave_type' required>
     <option value=''>-----Select----</option>";
   while($row= mysqli_fetch_array($retval)){
   $leave_id=$row['leave_id'];
@@ -329,7 +334,7 @@ xmlhttp.open("GET","ltest.php?days="+days,true);
   <label> From Date </label>
   </div>
   <div class="col-md-10">
-  <input name="fromdate"  id="datepicker1" type="text" onchange="validatefromdate()" style="width:350px;" required>
+  <input name="fromdate"  id="datepicker1" type="text" onchange="validatefromdate()" style="width:350px;height:35px;border-radius:5px;border:none;background-color:white;" required>
   <span><img src="images/calendar.png" ></span>
   </div>
  </div><br>
@@ -339,7 +344,7 @@ xmlhttp.open("GET","ltest.php?days="+days,true);
   <label>To Date </label>
   </div>
   <div class="col-md-10" id="colsel">
-<input name="todate"  id="datepicker2" type="text" onchange="validatetodate()" style="width:350px;"  required>
+<input name="todate"  id="datepicker2" type="text" onchange="validatetodate()" style="width:350px;height:35px;border-radius:5px;border:none;background-color:white;"  required>
   <span><img src="images/calendar.png" ></span>
   </div>
   </div><br>
@@ -357,19 +362,17 @@ xmlhttp.open("GET","ltest.php?days="+days,true);
   <label>Reason </label>
   </div>
   <div class="col-md-10">
-  <textarea name="reason" style="width:350px;height:35px;border-radius:5px;border:none;background-color:white;" rows="4" cols="50" rows="4" cols="50"  required></textarea>
+  <textarea name="reason" class="form-control" style="width:350px;border-radius:5px;border:none;background-color:white;" rows="4" cols="50" rows="4" cols="50"  required></textarea>
   </div>
-  </div><br><br> 
-  <div class="row">
+  </div><br><br> <hr id="hrbef"> 
+
    
  <button  class="btn btn-default"  type="submit">submit</button>
-&emsp;&emsp;<a href="admin_dashboard.php"><input type="button"   class="btn btn-default"  value="Back"></input></a>
+&emsp;&emsp;<input type="reset"   class="btn btn-default"  value="Reset"></input>
 
   
  
- </div>
 
- <hr id="hrbef">
   
 </form>
 
@@ -403,23 +406,6 @@ else if($leave_type==3 && $no_days>2)
 echo "<script >alert('Cannot taken morethan two Sick leaves please contact hr team')</script>";
 exit;
 }
-
-
-$sql_for_date_compare="select * from tekhub_apply_leave WHERE 
-(from_date='$from_date' or    to_date='$to_date' ) and emp_id='$id' and leave_id='$leave_type'";
-  $retval_for_date=mysqli_query($conn,$sql_for_date_compare);
-
-while($row_date= mysqli_fetch_array($retval_for_date)){
-	$from_date_db = $row_date['from_date'];
-	$to_date_db = $row_date['to_date'];
-	echo $from_date_db;
-	if($from_date==$from_date_db||$from_date==$to_date_db||$to_date==$from_date_db||$to_date==$to_date_db )
-	{
-		echo "<script> alert('Leave already taken for this  date, please check the date and try again   '); </script>";
-	exit;
-	}
-
-}
 	$sql="select * from tekhub_user_leave where leave_id='$leave_type' and emp_id='$id'";
   $retval=mysqli_query($conn,$sql);
   
@@ -429,6 +415,7 @@ while($row_date= mysqli_fetch_array($retval_for_date)){
     
 } 
  $leave_balance_new=($leave_balance-$no_days);
+
 
 	 $leave_balance_duration=($leave_balance-$duration);
      if($no_days <= $leave_balance){ 

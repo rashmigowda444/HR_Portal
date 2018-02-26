@@ -187,7 +187,13 @@ xmlhttp.open("GET","ltest.php?days="+days,true);
 
 <div class="row" >
   <div class="well" id="headingwell">
-  <h3 id="headingdash">Apply Leave</h3>
+  <h3 id="headingdash">
+  <div class="row">Apply Leave
+  <span style="float:right;"> 
+  <a href="emp_dashboard.php">
+  <img src="images\backarrow.png" style="width:35px;hieght:30px;margin-top:-9px;margin-right:8px;"> </a> </span>
+  
+  </div></h3>
   </div>
 
 <div class="well" id="contentwell">
@@ -269,7 +275,7 @@ echo" <option value=".$leave_id.">". $leave_type . "</option>";
   </div>
   </div><br><br><hr id="hrbef">
   <input type="submit" class="btn btn-default"    value="Submit" name="submit">&emsp;&emsp;
-  <a href="emp_dashboard.php"><input type="button"  class="btn btn-default"   value="Back"></input></a>
+  <input type="reset"  class="btn btn-default"   value="Reset"></input>
 </form>
 
 </div>

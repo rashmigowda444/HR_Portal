@@ -18,7 +18,12 @@ $(function() {
 
 <div class="row" >
   <div class="well" id="headingwell">
-    <h3 id="headingdash">Add Employee</h3>
+    <h3 id="headingdash"><div class="row">Add Employee
+  <span style="float:right;"> 
+  <a href="admin_dashboard.php">
+  <img src="images\backarrow.png" style="width:35px;hieght:30px;margin-top:-9px;margin-right:8px;"> </a> </span>
+  
+  </div></h3>
   </div>
 
   <div class="well" id="contentwell">
@@ -128,8 +133,8 @@ $(function() {
       </div><br>
 
 <br><hr>
-    <button type="submit" id="btn" class="btn">Add Employee</button>&emsp;
-      <a href="admin_dashboard.php"><input type="button"  id="btn"  class="btn" value="Back"></input></a>
+    <button type="Submit" id="btn" class="btn">Add Employee</button>&emsp;
+      <input type="reset"  id="btn"  class="btn" value="Reset"></input>
     </form>
 
 </div>

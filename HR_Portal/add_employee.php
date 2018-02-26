@@ -4,7 +4,12 @@
 
 <div class="row" >
   <div class="well" id="headingwell">
-  <h3 id="headingdash">Add Employee</h3>
+  <h3 id="headingdash"><div class="row">Add Employee
+  <span style="float:right;"> 
+  <a href="admin_dashboard.php">
+  <img src="images\backarrow.png" style="width:35px;hieght:30px;margin-top:-9px;margin-right:8px;"> </a> </span>
+  
+  </div></h3>
   </div>
   <div class="well" id="contentwell">
   <form method="post"> 
@@ -13,7 +18,7 @@
   <label>Employee Id :</label>
   </div>
   <div class="col-md-9">
-  <input name="id"  id="field" type="text" required>
+  <input name="id"  id="field" type="text" required >
   </div>
   </div><br>
   <div class="row">
@@ -63,8 +68,8 @@
   ?>
   </div><br><br><hr>
 
-  <button type="submit" id="btn" class="btn">Add</button>&emsp;
-  <a href="admin_dashboard.php"><input id="btn" type="button"  class="btn" value="Back"></input></a>
+  <button type="Submit" id="btn" class="btn">Add</button>&emsp;
+  <input id="btn" type="reset"  class="btn" value="Reset"></input>
   </form>
   </div>
 </div>
@@ -94,9 +99,10 @@ $leave="select * from tekhub_leaves";
 $leave_out=mysqli_query($conn,$leave);
 while($row= mysqli_fetch_array($leave_out))
 {
- // $leave_balance=$row['leave_entitlements']; 
+ // $leave_balance=$row['leave_entitlements'];
+   $year_val=date("Y-m-d");  
   $leave_id=$row['leave_id'];
-  $user_leave="INSERT INTO tekhub_user_leave(emp_id,leave_id,leave_entitlements,leave_balance)VALUES('$id','$leave_id',0,0)";
+  $user_leave="INSERT INTO tekhub_user_leave(emp_id,leave_id,leave_entitlements,leave_balance,year)VALUES('$id','$leave_id',0,0,'$year_val')";
   $leave_insert=mysqli_query($conn,$user_leave);
   if(!$leave_insert){
   die('could not enter data in leave:'.mysqli_error($conn));
