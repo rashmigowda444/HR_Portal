@@ -9,38 +9,38 @@
 <script>
 function myinfoedit()
  {    
-	   document.getElementById("addresstreat1").disabled=false;
-	   document.getElementById("addresstreat1").style.backgroundColor = "#ffffff";
+	    document.getElementById("addresstreat1").disabled=false;
+	     document.getElementById("addresstreat1").style.backgroundColor = "#ffffff";
 	   
-	   document.getElementById("addresstreat2").disabled=false;
-	   document.getElementById("addresstreat2").style.backgroundColor = "#ffffff";
+	    document.getElementById("addresstreat2").disabled=false;
+	    document.getElementById("addresstreat2").style.backgroundColor = "#ffffff";
 		  
 	      document.getElementById("city").disabled=false;
 		  document.getElementById("city").style.backgroundColor = "#ffffff";
 		  
-	   document.getElementById("state").disabled=false;
+	     document.getElementById("state").disabled=false;
 	     document.getElementById("state").style.backgroundColor = "#ffffff";
 		 
-	   document.getElementById("zipcode").disabled=false;
-	   document.getElementById("zipcode").style.backgroundColor = "#ffffff";
+	    document.getElementById("zipcode").disabled=false;
+	    document.getElementById("zipcode").style.backgroundColor = "#ffffff";
 	   
-	   document.getElementById("country").disabled=false;
-	   document.getElementById("country").style.backgroundColor = "#ffffff";
+	    document.getElementById("country").disabled=false;
+	    document.getElementById("country").style.backgroundColor = "#ffffff";
 	   
 	    document.getElementById("hometel").disabled=false;
 		document.getElementById("hometel").style.backgroundColor = "#ffffff";
 		
 		document.getElementById("mobile_no").disabled=false;
-		 document.getElementById("mobile_no").style.backgroundColor = "#ffffff";
+		document.getElementById("mobile_no").style.backgroundColor = "#ffffff";
 		 
-	   document.getElementById("worktel").disabled=false;
-	   document.getElementById("worktel").style.backgroundColor = "#ffffff";
+	    document.getElementById("worktel").disabled=false;
+	    document.getElementById("worktel").style.backgroundColor = "#ffffff";
 	   
 		document.getElementById("otheremail").disabled=false;
-	   document.getElementById("otheremail").style.backgroundColor = "#ffffff";
+	    document.getElementById("otheremail").style.backgroundColor = "#ffffff";
 	 
-	 document.getElementById("workemail").disabled=false;workemail
-	 document.getElementById("workemail").style.backgroundColor = "#ffffff";
+	   document.getElementById("workemail").disabled=false;workemail
+	   document.getElementById("workemail").style.backgroundColor = "#ffffff";
 		
 }
 </script>
@@ -61,7 +61,6 @@ while($row_db=mysqli_fetch_array($retval_from_db))
   $worktele=$row_db['worktele'];
    $workmail=$row_db['workemail'];
    $othermail=$row_db['otheremail'];
- 
 }
 ?>
 <!DOCTYPE html>
@@ -73,12 +72,10 @@ while($row_db=mysqli_fetch_array($retval_from_db))
   <li id="litopwelcome" class="dropdown">
   <a data-toggle="dropdown" style="text-decoration: none;">
   <?php
-
        if(isset($_SESSION['CurrentUser'])){
         echo 'Welcome '.'&nbsp;'.$_SESSION['CurrentUser'];
        }
   ?><span class="caret"></span></button></a>
-
     <ul class="dropdown-menu">
      <li><a href="#">Change Password</a></li>
       <li><a href="logout.php">Logout</a></li>
@@ -95,7 +92,7 @@ while($row_db=mysqli_fetch_array($retval_from_db))
 <div class="well" id="leftwell" >
 <h3 class="headinginfo">
   <?php
-        echo $_SESSION['CurrentUser'];      
+        echo $_SESSION['CurrentUser'];   
 	?>
 </h3>
 <div class="well" id="imgwell">
@@ -124,14 +121,13 @@ if(isset($_POST['upload']))
 		{
 			$sql_update=" update tekhub_employee_personal_details set img='$tmp' where emp_id='$id' ";
 		mysqli_query($conn,$sql_update);
-		}
-		 		
+		}	 		
 	}
 }
 $res="select * from tekhub_employee_personal_details where emp_id='$id'";
 $result1=mysqli_query($conn,$res);
 while($row=mysqli_fetch_array($result1))
-{	echo '<img src="data:image/jpeg;base64,'.base64_encode($row['img']).'" width="260" height="250" style="margin-top:-38px;margin-left:-16px;">';
+{	echo '<img src="data:image/jpeg;base64,'.base64_encode($row['img']).'" width="260" height="250" style="border:2px solid #000000;margin-top:-58px;margin-left:-16px;">';
 }
 ?>
 </div>
@@ -139,7 +135,7 @@ while($row=mysqli_fetch_array($result1))
    <li  id="liinfo"> <a href="my_info.php" class="list-group-item"  >Personal Details</a> </li>
    <li class="active"  id="liinfo"> <a href="contact_details.php" class="list-group-item">Contact Details</a> </li>
    <li id="liinfo"> <a href="emergency_contacts.php" class="list-group-item" >Emergency Contacts</a> </li>
-   <li  id="liinfo"> <a href="dependent.php" class="list-group-item" >Dependents</a> </li>
+   <li  id="liinfo"> <a href="depend.php" class="list-group-item" >Dependents</a> </li>
   
    <li  id="liinfo"> <a href="report_to.php" class="list-group-item" >Report-to</a> </li>  
   </ul>
@@ -545,31 +541,6 @@ die('could not enter data:'.mysqli_error());
 }
 ?>
 
-<?php /*
-       mysqli_select_db($conn,'tekvity');
-	   
-	   if(isset($_POST['edit']))
-{
- $name=$_POST['name'];
- 
-        $sql = "SELECT * FROM tekhub_personal_details WHERE name='$name'";
-		$result = mysqli_query($conn,$sql);
-}
-if(!$sql)
-{
-	echo "no records";
-}
-         while($row= mysqli_fetch_array($result,MYSQLI_ASSOC)){
- $name=$row['name'];
-		 $gender=$row['gender'];
-		 $marital=$row['marital'];
-		 $national=$row['national'];
-		  $dob=$row['dob'];
-		 $email_id = $row['email_id'];
-       $qualification=$_POST['qualification'];
-	   $date_of_joining=$_POST['date_of_joining']; 
-             }  */
-     ?>    
 <?php
 include('footer.php');
 ?> 

@@ -100,7 +100,7 @@ if(isset($_POST['upload']))
 $res="select * from tekhub_employee_personal_details where emp_id='$id'";
 $result1=mysqli_query($conn,$res);
 while($row=mysqli_fetch_array($result1))
-{	echo '<img src="data:image/jpeg;base64,'.base64_encode($row['img']).'" width="260" height="250" style="margin-top:-38px;margin-left:-16px;">';
+{	echo '<img src="data:image/jpeg;base64,'.base64_encode($row['img']).'" width="260" height="250" style="border:2px solid #000000;margin-top:-58px;margin-left:-16px;">';
 }
 ?>
 <?php	
@@ -463,10 +463,12 @@ die('could not enter data:'.mysqli_error());
 }
 
  ?>
-<?php
+
+
+
+</div> 
+</br><?php
 include('footer.php');
 ?> 
-
-</div>
 </body>
 </html>
