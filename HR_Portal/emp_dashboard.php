@@ -7,73 +7,6 @@
 <h1 id="h1head">Welcome To Employee Portal</h1>
 <h4 id="h4head">Here is a glimpse of the features available on the portal:</h4><br><br>
 
-
- 
- <?php
-$emp_name=$_SESSION['CurrentUser'];
-
-$emp_id=$_SESSION['empid'];
-
-
-        $sql2="SELECT * from tekhub_apply_leave as a inner JOIN tekhub_employee_personal_details as b on a.emp_id=b.emp_id INNER JOIN tekhub_leaves as c on a.leave_id=c.leave_id WHERE a.leave_status_id=2 and a.emp_id='$emp_id'";
-        $result=mysqli_query($conn, $sql2);
-        $count1=mysqli_num_rows($result);
-      ?>
-      <div class="notification" style="position:absolute;background-color:white;right:140px; margin-top:-115px;">
-          <span id="notification-count"><?php  if($count1>0) { echo $count1; } ?></span><img src="images/notification.png" data-toggle="modal" data-target="#myModal" width="50px" />
-      </div>    
-    </h4><br><br>
-  
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog" style="left:500px; width:300px;">
-      <div class="modal-content">
-        <div class="modal-header" style="background-color:beige;"></br> 
-          <?php
-            echo "<h3  style='background-color:brown; height:35px;color:white;'> Applied Leaves</h3><br>";
-            $sql="SELECT * from tekhub_apply_leave as a inner JOIN tekhub_employee_personal_details as b on a.emp_id=b.emp_id INNER JOIN tekhub_leaves as c on a.leave_id=c.leave_id
-inner join tekhub_leave_status as d on a.leave_status_id=d.leave_status_id
-			WHERE a.leave_status_id=2 or a.leave_status_id=3  and a.emp_id='$emp_id'";
-            $result=mysqli_query($conn, $sql);
-            $response='';
-            $count=0;
-          if($count1==0)
-		  {
-			  echo "No Notification..";
-		  }
-	  else
-	  {
-		  while($row=mysqli_fetch_array($result)) {
-              $count=$count+1;  
-            echo "".$count.".&nbsp;Hi &nbsp;".$row['emp_name']."<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Yours ".$row['leave_type']." ".$row['leave_status_name']."<hr id='hrline'>  </a>"; 
-            }
-	  }
-          ?>   
-        </div>
-        <div class="modal-footer" style="background-color:beige;">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-   
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <div class="col-md-6" id="colleftcont">
   <div class="row">
   <div class="col-md-2">
@@ -82,9 +15,9 @@ inner join tekhub_leave_status as d on a.leave_status_id=d.leave_status_id
   <div class="col-md-10">
     <h3>Employee Directory</h3>
     <p>Find out coordinates of your colleagues….all compiled in an online directory.</p>
-    <a id="a-btn" href="my_info.php"><button type="button" class="btn">Personal Details</button></a>
+    <a id="a-btn" href="#"><button type="button" class="btn">Personal Details</button></a>
     <a id="a-btn" href="contact_details.php"><button type="button" class="btn">Contact Details</button></a>
-    <a id="a-btn" href="emergency_contacts.php"><button type="button" class="btn">Emergency Contacts</button></a>
+    <a id="a-btn" href="#"><button type="button" class="btn">Emergency Contacts</button></a>
   </div>
   </div><hr>
 
@@ -163,7 +96,7 @@ inner join tekhub_leave_status as d on a.leave_status_id=d.leave_status_id
     <h3>Exit Management</h3>
     <p>Decided to leave for good? We will ensure you have a smooth exit. Just one request….Stay in touch!</p>
   </div>
-  </div>
+  </div><hr>
  
  <div class="row">
    <div class="col-md-2"> <img src="images/policy.png" alt="Tekvity" id="dashimg"></div>

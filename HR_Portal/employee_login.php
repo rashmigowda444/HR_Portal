@@ -15,11 +15,17 @@
 	</div><br><br>
 
 	<div class="input-group">
-        <input type="email" name="email" class="form-control" placeholder="Email ID" required style="width:320px;"><span style="color:white;height:33px;width:35px;background-color: brown;padding-top: 10px;padding-left: 10px;border-radius:3px;" class="glyphicon glyphicon-user"></span>
-      </div><br>
+        <span class="input-group-addon" style="color:white; background-color: brown">
+          <i class="glyphicon glyphicon-user"></i>
+        </span>        
+        <input type="email" name="email" class="form-control" placeholder="Email ID" required style="width:320px;"> 
+      </div><br>      
 
-      <div class="input-group">
-        <input type="password" name="pass" class="form-control" placeholder="Password" required style="width:320px;"><span style="color:white;height:33px;width:35px;background-color: brown;padding-top: 10px;padding-left: 10px;border-radius:3px;" class="glyphicon glyphicon-user"></span>
+      <div class="input-group">        
+        <span class="input-group-addon" style="color:white; background-color: brown">
+          <i class="glyphicon glyphicon-lock"></i>
+        </span>        
+        <input type="password" name="pass" class="form-control" placeholder="Password" required style="width:320px;">      
       </div><br><br>
 
       <div class="input-group">
@@ -44,7 +50,7 @@ $password1=md5($password);
 $email1=$pass1="";
 if($email!=''&& $password!='')
 {
-$sql="SELECT emp_id,emp_email,emp_pass,emp_name FROM tekhub_add_employee where emp_email='$email' and emp_pass='$password1'";
+$sql="SELECT emp_id,emp_email,emp_pass,emp_name,status FROM tekhub_add_employee where emp_email='$email' and emp_pass='$password1'";
 $retval=mysqli_query($conn,$sql);
 if(!$retval)
 {
@@ -55,8 +61,9 @@ $user=$row['emp_name'];
 $email1=$row['emp_email'];
 $pass1=$row['emp_pass'];
 $id=$row['emp_id'];
+$status=$row['status'];
 }
-if($email1==$email && $pass1==$password1){
+if($email1==$email && $pass1==$password1 && $status=='1'){
 
 
 
@@ -66,6 +73,9 @@ $_SESSION['empid']=$id;
 echo'<script>
 window.location="emp_dashboard.php";
 </script>';
+}
+elseif ($email1==$email && $pass1==$password1 && $status=='0') {
+  echo "<script>alert('Account is disabled')</script>";
 }
 else
 {

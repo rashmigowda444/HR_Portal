@@ -105,6 +105,38 @@ var xport = {
   }
 };
 </script>
+<!--<script>
+function validateForm() {
+    
+	var leave_type=document.forms["myForm"]["fieldleavetype"].value;
+	
+	
+    if (leave_type =="select") { 
+	
+        alert("please select leave type");
+        return false;
+    }
+	
+}
+</script>
+<script>
+function validateFormsec() {
+    
+	var leave_typesec=document.forms["myFormsec"]["fieldleavetypesec"].value;
+	
+	
+    if (leave_typesec =="select") { 
+        alert("please select leave type");
+        return false;
+    }fieldleavetypedate
+	var fieldleavetypedate=document.forms["myFormsec"]["fieldleavetypedate"].value;
+    if (fieldleavetypedate =="select") { 
+        alert("please select year");
+        return false;
+    }
+	
+}
+</script>-->
 <script>
 $(document).ready(function() {
   $('#field').on('change.div1', function() {
@@ -258,6 +290,8 @@ echo "<div class='row' id='leave_div'>
   <div class='well' id='headingwell'>
   <h3 id='headingdash'>Leave Details</h3>
   </div>
+
+  
   <div class='well' id='contentwell'> ";
 	 $emp_name1=$_POST['emp_name'];	
  $year1=$_POST['year'];
@@ -275,7 +309,8 @@ while($row= mysqli_fetch_array($retval1,MYSQLI_ASSOC))
      $emp_namee=$row['emp_name'];
 }    
      if($leave_type==0)
-	 {
+{   
+
 echo "<table class='table table-bordered view' id='leave_report'>
     <thead>
       <tr bgcolor='	#A52A2A'> 
@@ -291,6 +326,7 @@ echo "<table class='table table-bordered view' id='leave_report'>
     </thead>
     <tbody>";
 	$sql1="Select * from tekhub_apply_leave as B join tekhub_leaves as C on B.leave_id=C.leave_id  join tekhub_leave_status as D on D.leave_status_id = B.leave_status_id where B.emp_id='$emp_id' and year(B.date_created)='$year1'";
+	
 	$retval1=mysqli_query($conn,$sql1);
 	$count=mysqli_num_rows($retval1);
 	if($count>=1)
@@ -451,7 +487,10 @@ echo "<tr>
 	}
 
     echo "</tbody>
-  </table>"; 
+  </table>";
+  
+	 
+	 
  }
   ?>
   <form method="post">

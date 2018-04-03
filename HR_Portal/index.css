@@ -139,17 +139,17 @@ border-top: 1px solid silver !important;
   color:white;bottom:33px;position:relative;
 }
 #leftwell{
-  width:84%;height:40px;margin-left:20px;position:absolute;background-color: brown;
+  width:84%;height:40px;margin-left:20px;position:absolute;background-color: silver;
 }
 #imgwell{
   margin-top:-35px;width:117%;margin-left: -19px;height:250px;
 }
 #rightwell{
-    width:95%;height:40px;position:absolute;background-color: brown;
+    width:95%;height:40px;position:absolute;background-color: silver;
 
 }
 #rightinnerwell{
-  height:auto;background-color: beige !important;width:98%;margin-top: 40px;padding-top:30px;
+  height:auto;background-color: #F8F8F8 !important;width:98%;margin-top: 40px;padding-top:30px;
 }
 
 #spanname{
@@ -189,7 +189,7 @@ text-align: center;margin-left:-40px;width:260px;
 }
   
 #liinfo a{
-  background-color:brown;color:white;
+  background-color:#1D2951;color:white;
 }
 
 #liinfo a:hover{
@@ -239,7 +239,5 @@ background-color:brown !important;color:white;
 .fieldleavetype1{
   width:350px !important;height:35px !important;border-radius:5px!important;border:none !important;background-color:white !important;
 }
-
-
 
 </style>
