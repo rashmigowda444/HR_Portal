@@ -18,7 +18,7 @@
         <span class="input-group-addon" style="color:white; background-color: brown">
           <i class="glyphicon glyphicon-user"></i>
         </span>        
-        <input type="email" name="email" class="form-control" placeholder="Email ID" required style="width:320px;"> 
+        <input type="text" name="email" class="form-control" placeholder="Email ID/Emp ID" pattern="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$|[0-9]{1,3}" required style="width:320px;"> 
       </div><br>      
 
       <div class="input-group">        
@@ -29,7 +29,7 @@
       </div><br><br>
 
       <div class="input-group">
-        <input type="submit" class="form-control" placeholder="Login" value="Login" id="send">
+        <input type="submit" class="form-control" placeholder="Login" value="Login" id="send" name="submit">
         </div>
 	</form>
 	</div>
@@ -42,7 +42,7 @@ include('footer.php');
 
   
 <?php
-if(isset($_POST['email'])){
+if(isset($_POST['submit'])){
     
 $email=$_POST['email'];
 $password=$_POST['pass'];
@@ -50,7 +50,7 @@ $password1=md5($password);
 $email1=$pass1="";
 if($email!=''&& $password!='')
 {
-$sql="SELECT emp_id,emp_email,emp_pass,emp_name,status FROM tekhub_add_employee where emp_email='$email' and emp_pass='$password1'";
+$sql="SELECT emp_id,emp_email,emp_pass,emp_name,status FROM tekhub_add_employee where emp_email='$email' or emp_id='$email' and emp_pass='$password1'";
 $retval=mysqli_query($conn,$sql);
 if(!$retval)
 {
@@ -63,7 +63,7 @@ $pass1=$row['emp_pass'];
 $id=$row['emp_id'];
 $status=$row['status'];
 }
-if($email1==$email && $pass1==$password1 && $status=='1'){
+if(($email1==$email || $id==$email) && $pass1==$password1 && $status=='1'){
 
 
 
@@ -74,7 +74,7 @@ echo'<script>
 window.location="emp_dashboard.php";
 </script>';
 }
-elseif ($email1==$email && $pass1==$password1 && $status=='0') {
+elseif (($email1==$email || $id==$email) && $pass1==$password1 && $status=='0') {
   echo "<script>alert('Account is disabled')</script>";
 }
 else
