@@ -6,7 +6,7 @@
     $year=$_POST['year'];
     $month=$_POST['leave_month'];
 
-    $sql="Select * from tekhub_employee_salary ";
+    $sql="Select * from tekhub_employee_salary tes join tekhub_add_employee tae on tes.emp_id=tae.emp_id where tae.status = '1'";
     $retval=mysqli_query($conn,$sql);
       if(!$retval)
       {
@@ -42,7 +42,7 @@
     $gross=$basic_salary + $conveyance + $house + $medical + $special;
     $net=$gross-$professional-$income;
     
-    
+	    
     $sql3="Insert into tekhub_employee_payment_details(emp_id,basic_salary,conveyance,house_rent,medical,special,professional_tax,gross_earnings,net_pay,income_tax,pay_month,pay_year) values('$id','$basic_salary','$conveyance','$house','$medical','$special','$professional','$gross','$net','$income','$month','$year')";
        $retval3=mysqli_query($conn,$sql3);
       if(!$retval3)
@@ -57,7 +57,3 @@
 
 }
 ?>
-
-
-
-
