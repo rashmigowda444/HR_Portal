@@ -6,7 +6,13 @@
 
 <div class="row" id="leave_div">
   <div class="well" id="headingwell">
-  <h3 id="headingdash">Leave Details</h3>
+  <h3 id="headingdash">
+  <div class="row">Leave Details
+  <span style="float:right;"> 
+  <a href="emp_dashboard.php">
+  <img src="images\backarrow.png" style="width:35px;hieght:30px;margin-top:-9px;margin-right:8px;"> </a> </span>
+  
+  </div></h3>
   </div>
 
 <div class="well" id="contentwell">
@@ -61,6 +67,7 @@ echo"
 
 
 ?>
+
 </div>
 </div><br><hr id="hrline">
 

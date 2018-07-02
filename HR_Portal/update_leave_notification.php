@@ -10,7 +10,7 @@
         divreason.style.display = field1.value == "3" ? "block" : "none";
     }
 </script>
-<!--<script>
+<script>
 function update()
 {
 	
@@ -24,7 +24,7 @@ function update()
 		
 }
 
-</script>-->
+</script>
 
 <div class="row" id="leave_div">
   <div class="well" id="headingwell">
@@ -88,8 +88,8 @@ $sql='select * from tekhub_leave_status';
   }
   echo"
 
- <select  class='form-control' id='field1' name='leave_status' onchange = 'ShowHideDiv()' required>
-    <option value=''>-----Select----</option>";
+ <select  class='form-control' id='field1' name='leave_status' onchange = 'ShowHideDiv()'>
+    <option value='0'>-----Select----</option>";
   while($row= mysqli_fetch_array($retval)){
   $leave_status_id=$row['leave_status_id'];
   $leave_status_name=$row['leave_status_name'];
@@ -106,17 +106,15 @@ $sql='select * from tekhub_leave_status';
     <label>Reason:</label>
     <textarea class='form-control'  name='comment'></textarea><br>
 </div>
- <a href='admin_update_leaves.php'><input type='button'  class='btn btn-default' value='Back'></input></a>
+ <a href='admin_update_leaves_notification.php?eid=$eid&leave_id=$lid'><input type='button'  class='btn btn-default' value='Back'></input></a>
 </form>";
 
 
 $eid = isset($_REQUEST['eid']) ? $_REQUEST['eid'] : "0";
 $lid = isset($_REQUEST['lid']) ? $_REQUEST['lid'] : "0";
-if(isset($_POST['leave_status'])) 
-{
+if(isset($_POST['leave_status'])) {
 
 $leave_status=$_POST['leave_status'];
-echo $leave_status;
 if($leave_status==0)
 {exit;
 }
@@ -125,9 +123,7 @@ $comment=$_POST['comment'];
 
 $sql1="Update tekhub_apply_leave set leave_status_id='$leave_status',reason_cancel='$comment' where emp_id='$eid' and apply_leave_id='$lid' ";
   $retval1=mysqli_query($conn,$sql1);
-    echo $no_of_days; echo "and "; echo $leave_balance; echo "tot";
- 
-	  
+  	  
   if( $leave_status==3)
   { $leave_balance_add=$leave_balance+$no_of_days;
 	  $sql2="UPDATE tekhub_user_leave set  leave_balance=$leave_balance_add  WHERE emp_id=$eid and leave_id=$leave_id ";
@@ -139,22 +135,20 @@ $sql1="Update tekhub_apply_leave set leave_status_id='$leave_status',reason_canc
   }
   if(!$retval1){
   die('could not update data:'.mysqli_error($conn));
-     }
+  }
 else{
 echo "<script>
 alert('updated successfully');
-window.location='admin_update_leaves.php';
+window.location='admin_update_leaves_notification.php?eid=$eid&leave_id=$lid';
 </script>";
 }
 }
-
- mysqli_close($conn);
-?>
+ mysqli_close($conn);h3
  
+?>
+
 </div>
 </div><br><hr id="hrline">
-
-
 <?php
   include('footer.php');
 ?>

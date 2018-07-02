@@ -1,11 +1,10 @@
 <?php
   include('config.php');
   session_start();
-
-  if(isset($_SESSION["CurrentUser"]) && $_SESSION["admin"] == "0")
+  if(isset($_SESSION["CurrentUser"]) && $_SESSION["admin"] == "1")
   {}
   else{
-    echo '<script>window.location="employee_login.php";</script>';
+    echo '<script>window.location="admin_login.php";</script>';
   }
   date_default_timezone_set('GMT');
 ?>
@@ -81,7 +80,6 @@ margin:0;
 
 
 <script>
-
 function myFunction() {
     window.print();
 }
@@ -91,78 +89,33 @@ function myFunction() {
 
 
 <body>
-  <?php
-
-         if(isset($_SESSION['CurrentUser'])){
-           $user= $_SESSION['CurrentUser'];
-         }
-
-         else{
-
-         }
-      
-  ?>
-  
   <button onclick="myFunction()" id="but">Download PDF</button>
-  <button id="back"><a href="emp_select_payslip.php">Back</a></button>
+  <button id="back"><a href="admin_view_payslip.php">Back</a></button>
   <br><br>
  
   <div class="container" id="html-content-holder" style="height:90%;width:90%;border:2px solid;background-color:#ffffff;margin-top:30px">
   <div>
 
-  <?php
-  if(isset($_POST['year'])){
-  $year=$_POST['year'];
-  $month=$_POST['leave_month'];
+ <?php
+   if(isset($_POST['name'])){
+  	$name=$_POST['name'];
+    $year=$_POST['year'];
+    $month=$_POST['month'];
 
-
-// function calculateWorkingDaysInMonth($year = '$year', $month = '$month')
-// {
-//  //in case no values are passed to the function, use the current month and year
-//  if ($year == '')
-//  {
-//    $year = date('Y');
-//  }
-//  if ($month == '')
-//  {
-//    $month = date('m');
-//  } 
-//  //create a start and an end datetime value based on the input year 
-//  $startdate = strtotime($year . '-' . $month . '-01');
-//  $enddate = strtotime('+' . (date('t',$startdate) - 1). ' days',$startdate);
-//  $currentdate = $startdate;
-//  //get the total number of days in the month 
-//  $return = intval((date('t',$startdate)),10);
-//  //loop through the dates, from the start date to the end date
-//  while ($currentdate <= $enddate)
-//  {
-//    //if you encounter a Saturday or Sunday, remove from the total days count
-//    if ((date('D',$currentdate) == 'Sat') || (date('D',$currentdate) == 'Sun'))
-//    {
-//      $return = $return - 1;
-//    }
-//    $currentdate = strtotime('+1 day', $currentdate);
-//  } //end date walk loop
-//  //return the number of working days
-//   return $return;
-//   echo $return;
-// }
-
-  $sql="Select emp_id from tekhub_employee_personal_details where emp_name='$user'";
-  $retval=mysqli_query($conn,$sql);
+    $sql="Select emp_id from tekhub_employee_personal_details where emp_name='$name'";
+    $retval=mysqli_query($conn,$sql);
     if(!$retval)
     {
       die('could not fetch data:'.mysqli_error($conn));
     }
-    
     while($row1= mysqli_fetch_array($retval))
     {
       $id=$row1['emp_id']; 
     }
 
 
-  $days="Select sum(no_of_days) as total from tekhub_apply_leave where emp_id='$id' and MONTH(date_created)='$month' and YEAR(date_created)='$year'";
-  $ret=mysqli_query($conn,$days);
+    $days="Select sum(no_of_days) as total from tekhub_apply_leave where emp_id='$id' and MONTH(date_created)='$month' and YEAR(date_created)='$year'";
+    $ret=mysqli_query($conn,$days);
     if(!$ret)
     {
       die('could not fetch data:'.mysqli_error($conn));
@@ -173,25 +126,24 @@ function myFunction() {
     }
 
 
-   $lopdays="Select sum(no_of_days) as loptotal from tekhub_apply_leave where emp_id='$id' and MONTH(date_created)='$month' and YEAR(date_created)='$year' and leave_id=4";
-   $retlop=mysqli_query($conn,$lopdays);
+    $lopdays="Select sum(no_of_days) as loptotal from tekhub_apply_leave where emp_id='$id' and MONTH(date_created)='$month' and YEAR(date_created)='$year' and leave_id=4";
+    $retlop=mysqli_query($conn,$lopdays);
     if(!$retlop)
     {
       die('could not fetch data:'.mysqli_error($conn));
     }
-    
     while($rowdays= mysqli_fetch_array($retlop))
     {
       $lop_days=$rowdays['loptotal']; 
     }
 
-  $name="Select * from tekhub_month where month_value='$month'";
-  $retmon=mysqli_query($conn,$name);
+
+    $name="Select * from tekhub_month where month_value='$month'";
+  	$retmon=mysqli_query($conn,$name);
     if(!$retmon)
     {
       die('could not fetch data:'.mysqli_error($conn));
     }
-    
     while($rowname= mysqli_fetch_array($retmon))
     {
       $month_name=$rowname['month_name']; 
@@ -199,9 +151,8 @@ function myFunction() {
 
 
 
-
-  $sqldays="SELECT * from tekhub_month where month_value=$month";
-  $retdays=mysqli_query($conn,$sqldays);
+    $sqldays="SELECT * from tekhub_month where month_value=$month";
+  	$retdays=mysqli_query($conn,$sqldays);
     if(!$retdays)
     {
       die('could not fetch data:'.mysqli_error($conn));
@@ -212,6 +163,7 @@ function myFunction() {
     $work_days=$rowdays['working_days']; 
     }
    
+
 
   $sql1 = "SELECT * 
   FROM tekhub_employee_personal_details AS personal
@@ -225,16 +177,12 @@ function myFunction() {
     }
      $row_cnt = mysqli_num_rows($retval1);
 
-  if($row_cnt>0)
-  {
+  	if($row_cnt>0)
+  	{
 
-   while($row= mysqli_fetch_array($retval1))
-   {
-    
-   // $time=strtotime($row['date_generated']);
-   // $month=date("F",$time);
-   // $year=date("Y",$time);
-   // $number = date(' t ', strtotime($row['date_generated']) );
+   	while($row= mysqli_fetch_array($retval1))
+   	{
+
    $number=cal_days_in_month(CAL_GREGORIAN, $month, $year); 
    $income=number_format($row['income_tax'], 2, '.', ',');
    $basic=number_format($row['basic_salary'], 2, '.', ',');
@@ -246,13 +194,16 @@ function myFunction() {
    
 
    $lop_ded=($row['gross_earnings']/$work_days)*$lop_days;
-   $lop=number_format($lop_ded, 2, '.', ',');
+   $lop = round($lop_ded);
+   $lop=number_format($lop, 2, '.', ',');
 
-   $gross= $row['professional_tax']+$row['income_tax']+$lop_ded;
+   $gross= $row['professional_tax']+$row['income_tax']+$lop;
    $gross_deduc=number_format($gross, 2, '.', ',');
    $net=$row['net_pay']-$lop_ded;
+   $net = round($net);
    $net_pay=number_format($net, 2, '.', ',');
-echo"
+   
+	echo"
 
    <div class='row' >
    <div class='col-md-6' style='float:left;line-height:0.8;'>
@@ -430,7 +381,7 @@ echo"
     
     ";
     
-   $number = $net;
+   $number =round($net);
    $no = round($number);
    $point = round($number - $no, 2) * 100;
    $hundred = null;
@@ -486,11 +437,13 @@ echo"
 else{
 
 echo'<script>alert("No payslip found for selected month and year")</script>';
-echo'<script>window.location.href="emp_select_payslip.php"</script>';
+
+echo'<script>window.location.href="admin_view_payslip.php"</script>';
 }
 }
 mysqli_close($conn);
 ?>
+
 </div>
 </div><br>
 <p style="text-align:center;font-family:Helvetica;">This is a computer generated document, hence no signature is required.</p><br>

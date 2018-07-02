@@ -15,21 +15,17 @@
 	</div><br><br>
 
 	<div class="input-group">
-        <input type="text" name="name" class="form-control" placeholder="Username" required>
-        <div class="input-group-btn">
-          <button class="btn btn-default" type="submit">
-            <i class="glyphicon glyphicon-user"></i>
-          </button>
-        </div>
-      </div><br>
+        <span class="input-group-addon" style="color:white; background-color: brown">
+          <i class="glyphicon glyphicon-user"></i>
+        </span>        
+        <input type="text" name="name" class="form-control" placeholder="Username" required style="width:320px;"> 
+      </div><br>      
 
-      <div class="input-group">
-        <input type="password" name="pass" class="form-control" placeholder="Password" required>
-        <div class="input-group-btn">
-          <button class="btn btn-default" type="submit">
-            <i class="glyphicon glyphicon-lock"></i>
-          </button>
-        </div>
+      <div class="input-group">        
+        <span class="input-group-addon" style="color:white; background-color: brown">
+          <i class="glyphicon glyphicon-lock"></i>
+        </span>        
+        <input type="password" name="pass" class="form-control" placeholder="Password" required style="width:320px;">      
       </div><br><br>
 
       <div class="input-group">

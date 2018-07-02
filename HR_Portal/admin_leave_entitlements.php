@@ -8,7 +8,16 @@ $(function() {
     });
 });
 </script>
-
+<!--<script>
+function validateForm() {
+    var x = document.forms["myForm"]["type_leave"].value;
+	
+    if (x =="select") { 
+        alert("please select leave type");
+        return false;
+    }
+}
+</script>-->
 <script type="text/javascript">
         $(function() {
   var start_year = new Date().getFullYear();
@@ -21,10 +30,16 @@ $(function() {
 
 <div class="row" >
   <div class="well" id="headingwell">
-  <h3 id="headingdash">Employee Leave Entitlements</h3>
+  <h3 id="headingdash"><div class="row"> Leave Entitlements
+  <span style="float:right;"> 
+  <a href="admin_dashboard.php">
+  <img src="images\backarrow.png" style="width:35px;hieght:30px;margin-top:-9px;margin-right:8px;"> </a> </span>
+  
+  </div>
+  </h3>
   </div>
  <div class="well" id="contentwell">
- <form method="post">
+ <form method="post" name="myForm" onsubmit="return validateForm()">
   <table class="table table-striped">
     <thead>
       <tr>
@@ -35,7 +50,7 @@ $(function() {
 </thead>
 <tbody>
 <tr>
-<td><input class="form-control" name="name" id="field1"></td>
+<td><input class="form-control" name="name" id="field1" placeholder="Search name..." required></td>
 <td><?php 
   $sql="select * from tekhub_leaves";
   $retval=mysqli_query($conn,$sql);
@@ -43,8 +58,8 @@ $(function() {
   die('could not enter data:'.mysqli_error());
   }
   echo"
- <select id='field1' class='form-control' onchange='showleave(this.value)' name='leave_type'  required>
-    <option disabled='disabled' selected='selected'>-----Select----</option>
+ <select id='type_leave' class='form-control'  name='leave_type'  required>
+    <option value=''>-----Select----</option>
 <option value='0'>All</option>";
   while($row= mysqli_fetch_array($retval)){
   $leave_id=$row['leave_id'];
@@ -53,24 +68,36 @@ $(function() {
   }
     echo" </select>";
   ?></td>
-<td><select name="year" class="form-control year" id="field1" ></select></td>
+<td><select name="year" class="form-control year" id="field1" required >
+<option value="">----Select----</option>
+
+</select></td>
       </tr>
     
     </tbody>
 </table>
 <hr>
-<input type="submit" name="sub" class="btn" value="Submit" >
-</form>
+<input type="submit" name="sub" class="btn" value="Submit" >&emsp;&emsp;
+<a href="admin_dashboard.php"><input type="reset"  class="btn" value="Reset"></a>
 <br><br>
+</form > 
 
 <?php
 if (isset($_POST['sub'])) {
   $name=$_POST['name'];
+
  $leave_type=$_POST['leave_type'];
  $year=$_POST['year'];
 
 $sql = "select emp_id from tekhub_employee_personal_details where emp_name='$name'";
+
 $retval=mysqli_query($conn,$sql);
+$numrow=mysqli_num_rows($retval);
+if($numrow==0)
+{ echo " <script> alert('No records found'); </script>"; 
+exit;
+	
+}
   if(!$retval)
   {
 die('Could not fetch data: ' . mysqli_error($conn));
@@ -86,12 +113,7 @@ if($leave_type=='0')
  INNER join tekhub_user_leave as b on a.leave_id=b.leave_id INNER
  JOIN tekhub_employee_personal_details as d
  on d.emp_id=b.emp_id WHERE b.emp_id='$emp_id' and year(b.year)='$year' GROUP BY b.leave_id "; 
-  /* $sql1="SELECT * FROM `tekhub_leaves` as a INNER join tekhub_user_leave as b on a.leave_id=b.leave_id INNER JOIN tekhub_apply_leave as c on a.leave_id=c.leave_id and 
-  c.emp_id=b.emp_id INNER JOIN tekhub_employee_personal_details as d on d.emp_id=c.emp_id WHERE c.emp_id=".$emp_id."
-  and year(c.date_created)=".$year." GROUP BY c.leave_id";*/
-  
-  
-  
+ 
   $retval1=mysqli_query($conn,$sql1);
   if(!$retval1)
   {
@@ -134,13 +156,6 @@ echo "<table class='table table-bordered'>
 	
 else{
 	
-  
- /* $sql2="select * from tekhub_employee_personal_details as A 
-  join tekhub_user_leave as B on A.emp_id=B.emp_id 
-  join tekhub_apply_leave as C on B.leave_id=C.leave_id join
-  tekhub_leaves as D on C.leave_id=D.leave_id where A.emp_id=".$emp_id." and 
-  year(C.date_created)=".$year." and C.leave_id='$leave_type' GROUP by D.leave_id";*/
-  
   $sql2="select * from tekhub_employee_personal_details 
   as A join tekhub_user_leave as B on A.emp_id=B.emp_id join
   tekhub_leaves as D on B.leave_id=D.leave_id where A.emp_id='$emp_id' and year(B.year)='$year' 
@@ -191,10 +206,10 @@ $sqlfornorofdays="SELECT sum(no_of_days) as newone FROM `tekhub_apply_leave` WHE
      
 }
     echo "</tbody>
-  </table>";
+  </table>"; 
 }
 	
-	
+
 	
 }
  mysqli_close($conn);
@@ -205,25 +220,6 @@ $sqlfornorofdays="SELECT sum(no_of_days) as newone FROM `tekhub_apply_leave` WHE
 </div>
 <br><hr id="hrline">
  
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <?php
   include('footer.php');
 ?>

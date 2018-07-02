@@ -1,17 +1,16 @@
 <?php
   include('config.php');
   session_start();
-?>
-<?php
+?><?php
 $q = intval($_GET['days']);
 echo $q;
 $_SESSION['no_days']=$q;
-$id = $_SESSION['empid'];
+//$id = $_SESSION['empid'];
 echo'<div style="visibility:hidden;">
 $q</div>';
 if($q==1){
 echo'
-<div class="row"   id="rowduration" style="margin-left:-182px;margin-top:25px;">
+<div class="row"   id="rowduration" style="margin-left:-200px;margin-top:25px;">
   <div class="col-md-2">
   <label>Duration </label>
   </div>

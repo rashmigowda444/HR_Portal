@@ -15,9 +15,9 @@
   <div class="col-md-10">
     <h3>Employee Directory</h3>
     <p>Find out coordinates of your colleagues….all compiled in an online directory.</p>
-    <a id="a-btn" href="my_info.php"><button type="button" class="btn">Personal Details</button></a>
+    <a id="a-btn" href="#"><button type="button" class="btn">Personal Details</button></a>
     <a id="a-btn" href="contact_details.php"><button type="button" class="btn">Contact Details</button></a>
-    <a id="a-btn" href="emergency_contacts.php"><button type="button" class="btn">Emergency Contacts</button></a>
+    <a id="a-btn" href="#"><button type="button" class="btn">Emergency Contacts</button></a>
   </div>
   </div><hr>
 
@@ -83,7 +83,7 @@
   <div class="col-md-10">
     <h3>Pay Slip</h3>
     <p>Generate and download your pay slips</p>
-    <a id="a-btn" href="payslip_generate.php"><button type="button" class="btn">Generate PaySlip</button></a>
+    <a id="a-btn" href="emp_select_payslip.php"><button type="button" class="btn">Generate PaySlip</button></a>
     
   </div>
   </div><hr>
@@ -97,6 +97,19 @@
     <p>Decided to leave for good? We will ensure you have a smooth exit. Just one request….Stay in touch!</p>
   </div>
   </div><hr>
+ 
+ <div class="row">
+   <div class="col-md-2"> <img src="images/policy.png" alt="Tekvity" id="dashimg"></div>
+   <div class="col-md-10">
+    <h3> Policies & Procedures</h3>
+    <p>HR Policies & Procedures or Forms & Formats, all the information you often require is made available round 
+   the clock!</p>
+    <a id="a-btn" href="emp_view_policy.php"><button type="button" class="btn">Policy & procedure</button></a>
+  
+  </div> </div>
+  
+
+  <hr>
 
 </div>
 </div><br><br><hr id="hrline">
